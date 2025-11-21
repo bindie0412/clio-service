@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Caveat:wght@700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 
     <style>
-        /* ================= [디자인] 1. 배경 & 헤더 ================= */
+        /* ================= [?붿옄?? 1. 諛곌꼍 & ?ㅻ뜑 ================= */
         body { 
             font-family: 'Nanum Pen Script', cursive;
             background-color: #1a120b; 
@@ -20,7 +20,7 @@
             text-align: center; 
             margin-bottom: 40px; 
             border-bottom: 2px solid #3e2723; 
-            background: rgba(0,0,0,0.4); /* 배경 어둡게 */
+            background: rgba(0,0,0,0.4); /* 諛곌꼍 ?대몼寃?*/
             padding: 30px; 
             border-radius: 10px; 
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
@@ -48,9 +48,9 @@
         }
         .btn-home:hover { color: #d4af37; border-bottom: 1px solid #d4af37; }
 
-        /* ================= [디자인] 2. 검색 필터 박스 ================= */
+        /* ================= [?붿옄?? 2. 寃???꾪꽣 諛뺤뒪 ================= */
         .filter-box { 
-            background: #3e2723; /* 진한 나무색 */
+            background: #3e2723; /* 吏꾪븳 ?섎Т??*/
             padding: 20px; 
             border-radius: 5px; 
             margin-bottom: 50px; 
@@ -63,7 +63,7 @@
             flex-wrap: wrap;
         }
 
-        /* 입력창 스타일 (굵은 손글씨) */
+        /* ?낅젰李??ㅽ???(援듭? ?먭??? */
         select, input[type="date"] { 
             padding: 10px 20px; 
             background: #e6dec8; 
@@ -89,7 +89,7 @@
         }
         button:hover { background-color: #d4af37; color: #1a120b; }
 
-        /* ================= [디자인] 3. 책꽂이 & 일기 카드 ================= */
+        /* ================= [?붿옄?? 3. 梨낃퐘??& ?쇨린 移대뱶 ================= */
         .bookshelf { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
@@ -101,11 +101,11 @@
             background: #f5f1e6; 
             padding: 25px; 
             position: relative;
-            border-radius: 5px 15px 15px 5px; /* 책 모양 */
+            border-radius: 5px 15px 15px 5px; /* 梨?紐⑥뼇 */
             box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
-            border-left: 18px solid #8d6e63; /* 두꺼운 책등 */
+            border-left: 18px solid #8d6e63; /* ?먭볼??梨낅벑 */
             transition: transform 0.3s;
-            height: 420px; /* 높이 넉넉하게 */
+            height: 420px; /* ?믪씠 ?됰꼮?섍쾶 */
             display: flex; 
             flex-direction: column;
             overflow: hidden;
@@ -117,7 +117,7 @@
             z-index: 10; 
         }
 
-        /* 날짜 */
+        /* ?좎쭨 */
         .date { 
             font-family: 'Cinzel', serif; 
             font-size: 1.4rem; 
@@ -128,7 +128,7 @@
             font-weight: bold;
         }
         
-        /* 감정 뱃지 */
+        /* 媛먯젙 諭껋? */
         .emotion-badge {
             align-self: flex-start; 
             font-family: 'Cinzel', serif; 
@@ -141,12 +141,12 @@
             font-weight: bold;
         }
 
-        /* 일기 본문 */
+        /* ?쇨린 蹂몃Ц */
         .text {
             font-family: 'Caveat', 'Nanum Pen Script', cursive; 
             font-size: 26px; 
             font-weight: bold; 
-            color: #1a237e; /* 잉크색 */
+            color: #1a237e; /* ?됲겕??*/
             line-height: 1.6; 
             overflow-y: auto; 
             flex-grow: 1; 
@@ -155,11 +155,11 @@
             scrollbar-color: #a1887f transparent;
         }
         
-        /* 스크롤바 */
+        /* ?ㅽ겕濡ㅻ컮 */
         .text::-webkit-scrollbar { width: 8px; }
         .text::-webkit-scrollbar-thumb { background-color: #a1887f; border-radius: 4px; }
 
-        /* 인물 태그 */
+        /* ?몃Ъ ?쒓렇 */
         .people-tags {
             margin-top: 15px; 
             padding-top: 15px; 
@@ -193,7 +193,7 @@
     <header>
         <h1>The Grand Archives</h1>
         <p class="subtitle">"Where memories sleep in silence."</p>
-        <a href="/" class="btn-home">← Return to Desk</a>
+        <a href="/" class="btn-home">??Return to Desk</a>
     </header>
 
     <div class="filter-box">
@@ -243,7 +243,7 @@
             
             {% if diary.people %}
             <div class="people-tags">
-                👥 With: 
+                ?뫁 With: 
                 {% for p in diary.people %}
                     <span style="color: {{ p.color }}; margin-right: 5px;">{{ p.name }}</span>
                 {% endfor %}
@@ -257,16 +257,16 @@
         const bgm = document.getElementById('bgm');
         bgm.volume = 0.5;
 
-        // 저장된 시간 불러오기
+        // ??λ맂 ?쒓컙 遺덈윭?ㅺ린
         const savedTime = sessionStorage.getItem('bgmTime');
         if (savedTime) {
             bgm.currentTime = savedTime;
         }
         
-        // 자동 재생
-        bgm.play().catch(e => console.log("자동 재생 차단됨"));
+        // ?먮룞 ?ъ깮
+        bgm.play().catch(e => console.log("?먮룞 ?ъ깮 李⑤떒??));
 
-        // 나갈 때 시간 저장
+        // ?섍컝 ???쒓컙 ???
         window.addEventListener('beforeunload', () => {
             sessionStorage.setItem('bgmTime', bgm.currentTime);
         });

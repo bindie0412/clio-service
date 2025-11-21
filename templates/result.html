@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,20 +18,20 @@
         }
         .container {
             background-color: rgba(255, 255, 255, 0.95);
-            padding: 50px;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            max-width: 600px;
+            padding: 40px 30px;
+            border-radius: 20px;
+            max-width: 700px;
             width: 100%;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            text-align: center;
         }
         .color-circle {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            background-color: {{ color }};
-            margin: 0 auto 30px;
-            border: 6px solid white;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            margin: 0 auto 20px auto;
+            background: radial-gradient(circle at 30% 30%, #ffffff, {{ color }});
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
         h1 {
             color: #222;
@@ -46,18 +46,19 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         .info-section {
-            background: #f8f8f8;
-            padding: 25px;
-            border-radius: 15px;
-            margin: 30px 0;
             text-align: left;
+            margin-top: 20px;
+            background: #f8f8f8;
+            border-radius: 10px;
+            padding: 15px 20px;
+            border-left: 5px solid {{ color }};
         }
         .info-section p {
-            margin: 12px 0;
-            font-size: 1.1em;
+            margin: 8px 0;
+            font-size: 0.95em;
             color: #333;
-            border-bottom: 1px solid #eee; /* 줄긋기 추가 */
-            padding-bottom: 8px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 5px;
         }
         .info-section p:last-child {
             border-bottom: none;
@@ -66,7 +67,7 @@
             color: {{ color }};
             font-weight: 600;
             display: inline-block;
-            width: 180px; /* 라벨 간격 맞추기 */
+            width: 180px;
         }
         .diary-label {
             font-weight: bold;
@@ -105,10 +106,21 @@
         button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-            filter: brightness(1.1); /* 마우스 올리면 살짝 밝게 */
+            filter: brightness(1.1);
         }
         a {
             text-decoration: none;
+        }
+        .music-title {
+            margin-top: 30px;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #222;
+            text-align: left;
+        }
+        .music-player {
+            margin-top: 10px;
+            margin-bottom: 30px;
         }
     </style>
 </head>
@@ -130,10 +142,22 @@
                 <strong>Tone:</strong> {{ tone }}
             </p>
             <p>
-                <strong>Color Code:</strong> <code style="background: #eee; padding: 5px 10px; border-radius: 5px; color: #333;">{{ color }}</code>
+                <strong>Color Code:</strong> <code>{{ color }}</code>
             </p>
         </div>
         
+        {% if spotify_url %}
+        <h2 class="music-title">🎧 A song that matches your mood</h2>
+        <div class="music-player">
+            <iframe style="border-radius:12px"
+                    src="{{ spotify_url }}"
+                    width="100%" height="152" frameborder="0"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy">
+            </iframe>
+        </div>
+        {% endif %}
+
         <p class="diary-label">📝 Your Diary Entry:</p>
         <div class="diary-box">{{ text }}</div>
         
@@ -143,5 +167,17 @@
             </a>
         </div>
     </div>
+{% if spotify_url %}
+<script>
+  window.addEventListener('load', function () {
+    var bgm = document.getElementById('bgm-audio');
+    if (bgm) {
+      bgm.pause();
+      bgm.currentTime = 0;
+      bgm.muted = true;
+    }
+  });
+</script>
+{% endif %}
 </body>
 </html>
