@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Antique Diary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Caveat:wght@700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ================= [디자인] 1. 전체 배경 ================= */
+        body { 
+            font-family: 'Nanum Pen Script', cursive;
+            background-color: #1a120b; /* 진한 고동색 */
+            background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            perspective: 1500px; /* 3D 입체감 */
+        }
+
+        /* ================= [디자인] 2. 책 애니메이션 틀 ================= */
+        .book-wrapper {
+            position: relative;
+            width: 480px; /* 닫힌 책 너비 */
+            height: 680px; /* 책 높이 */
+            transition: width 1s ease-in-out, transform 1s ease-in-out; 
+            transform-style: preserve-3d;
+        }
+
+        /* 책이 열렸을 때 너비 */
+        .book-wrapper.is-open {
+            width: 1100px; 
+        }
+
+        /* ================= [디자인] 3. 표지 (Cover) ================= */
+        .cover {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: #3e2723; /* 가죽색 */
+            background-image: repeating-linear-gradient(45deg, #3e2723 0px, #3e2723 2px, #4e342e 2px, #4e342e 4px);
+            border: 2px solid #1a120b;
+            border-radius: 5px 15px 15px 5px;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.8), 15px 25px 40px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transform-origin: left; /* 왼쪽을 축으로 회전 */
+            transition: transform 1s ease-in-out, opacity 0.5s ease-in-out;
+            cursor: pointer;
+        }
+
+        /* 표지 금테 장식 */
+        .cover::after {
+            content: ''; position: absolute; top: 25px; bottom: 25px; left: 25px; right: 25px;
+            border: 3px double #d4af37; pointer-events: none;
+        }
+
+        /* 표지 열림 효과 (회전) */
+        .book-wrapper.is-open .cover {
+            transform: rotateY(-180deg);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .cover h1 { 
+            font-family: 'Cinzel', serif; 
+            font-size: 3.8rem; 
+            color: #d4af37; /* 금색 */
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8); 
+            margin: 0; text-align: center; 
+            line-height: 1.2;
+        }
+        
+        .cover p { 
+            font-family: 'Caveat', cursive; 
+            color: #bcaaa4; 
+            font-size: 2rem; 
+            margin-top: 15px; 
+            font-weight: bold; 
+        }
+        
+        .click-hint { 
+            margin-top: 60px; 
+            color: #d4af37; 
+            font-family: 'Cinzel', serif; 
+            font-size: 1.1rem; 
+            animation: blink 2s infinite; 
+        }
+        @keyframes blink { 50% { opacity: 0.5; } }
+
+        /* ================= [디자인] 4. 속지 (Inner Pages) ================= */
+        .inner-pages {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; 
+            opacity: 0; 
+            transition: opacity 1s ease-in-out; 
+            pointer-events: none;
+            background-color: #e6dec8; /* 종이색 */
+            box-shadow: inset 0 0 60px rgba(0,0,0,0.15); 
+            border-radius: 5px; 
+            overflow: hidden;
+        }
+
+        .book-wrapper.is-open .inner-pages { opacity: 1; pointer-events: auto; transition-delay: 0.3s; }
+
+        .page { flex: 1; padding: 50px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        
+        /* 왼쪽 페이지 (날짜, 메뉴) */
+        .page-left { 
+            background: linear-gradient(to right, #e6dec8 95%, #d7ccc8 100%); 
+            border-right: 1px solid #d7ccc8; 
+            align-items: center; 
+        }
+        
+        /* 오른쪽 페이지 (입력창) */
+        .page-right { 
+            background: linear-gradient(to left, #e6dec8 95%, #d7ccc8 100%); 
+        }
+
+        /* 내부 텍스트 스타일 */
+        h2 { font-family: 'Cinzel', serif; font-size: 3.2rem; color: #3e2723; margin: 0 0 10px 0; text-shadow: 1px 1px 0 rgba(255,255,255,0.5); }
+        
+        .subtitle { 
+            color: #5d4037; 
+            font-family: 'Caveat', cursive; 
+            font-size: 2rem; 
+            margin-bottom: 50px; 
+            font-weight: bold; 
+        }
+        
+        label { font-family: 'Cinzel', serif; color: #5d4037; font-size: 1.6rem; margin-bottom: 15px; font-weight: bold; }
+        
+        /* ✅ 날짜 입력칸: 굵은 손글씨 */
+        input[type="date"] { 
+            padding: 10px; 
+            font-size: 32px; 
+            font-family: 'Caveat', cursive; 
+            font-weight: bold; 
+            border: none; 
+            border-bottom: 3px solid #8d6e63; 
+            background: transparent; 
+            color: #3e2723; 
+            text-align: center; 
+            width: 85%; 
+            outline: none; 
+        }
+
+        /* ✅ [핵심 수정] 일기 입력창: 줄 간격 PX 단위 고정 (절대 안 어긋남) */
+        textarea { 
+            width: 100%; 
+            height: 100%; 
+            padding-left: 15px;
+            padding-right: 15px;
+            
+            /* 첫 줄 위치 미세 조정 */
+            padding-top: 12px; 
+            
+            font-family: 'Caveat', 'Nanum Pen Script', cursive; 
+            font-size: 30px; 
+            font-weight: 700; /* 굵게 */
+            
+            /* 줄 간격과 배경 줄 높이를 60px로 완벽 일치 */
+            line-height: 60px; 
+            
+            border: none; 
+            resize: none; 
+            outline: none; 
+            background-color: transparent; 
+            
+            /* 줄 긋기 */
+            background-image: linear-gradient(transparent 97%, #bcaaa4 97%); 
+            background-size: 100% 60px; 
+            
+            color: #1a237e; /* 진한 잉크색 */
+        }
+        
+        textarea::placeholder { color: #a1887f; font-size: 30px; font-weight: normal; opacity: 0.7; }
+
+        /* 버튼 스타일 */
+        .btn-analyze { 
+            position: absolute; bottom: 40px; right: 50px; 
+            padding: 15px 40px; 
+            font-family: 'Cinzel', serif; 
+            font-size: 18px;
+            font-weight: bold; 
+            background-color: #3e2723; 
+            color: #d4af37; 
+            border: 1px solid #5d4037; 
+            cursor: pointer; 
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3); 
+            transition: 0.3s; 
+            border-radius: 5px;
+        }
+        .btn-analyze:hover { transform: translateY(-3px); background-color: #4e342e; box-shadow: 0 8px 15px rgba(0,0,0,0.4); }
+
+        .btn-history { 
+            margin-top: 50px; 
+            padding: 12px 35px; 
+            background: transparent; 
+            color: #5d4037; 
+            border: 2px solid #5d4037; 
+            font-family: 'Cinzel', serif; 
+            font-weight: bold; 
+            font-size: 16px;
+            cursor: pointer; 
+            transition: 0.3s; 
+            border-radius: 5px;
+        }
+        .btn-history:hover { background-color: #5d4037; color: #e6dec8; }
+
+        /* 책갈피 */
+        .bookmark { position: absolute; top: 0; left: 60px; width: 45px; height: 90px; background: #c0392b; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
+
+    </style>
+</head>
+<body>
+
+    <audio id="bgm" loop>
+        <source src="/static/bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="book-wrapper" id="book">
+        <div class="cover" onclick="openBook()">
+            <h1>The Private<br>Journal</h1>
+            <p>"Tap to unlock your story"</p>
+            <div class="click-hint">Click to Open</div>
+        </div>
+
+        <form action="/analyze" method="post" class="inner-pages">
+            <div class="bookmark"></div>
+            
+            <div class="page page-left">
+                <h2>New Entry</h2>
+                <p class="subtitle">"A fresh page for today."</p>
+                <div style="width: 100%; text-align: center;">
+                    <label for="date-picker">Date of Entry</label>
+                    <input type="date" id="date-picker" name="date" required>
+                </div>
+                <a href="/history" style="text-decoration: none;">
+                    <button type="button" class="btn-history">Open Archive</button>
+                </a>
+            </div>
+
+            <div class="page page-right">
+                <textarea name="diary" placeholder="Dear Diary... (Write here)"></textarea>
+                <button type="submit" class="btn-analyze">Seal & Analyze</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const book = document.getElementById('book');
+        const bgm = document.getElementById('bgm');
+        
+        bgm.volume = 0.5;
+
+        // ✅ [기능 2] 음악 이어듣기 (시간 불러오기)
+        const savedTime = sessionStorage.getItem('bgmTime');
+        if (savedTime) {
+            bgm.currentTime = savedTime;
+        }
+
+        // ✅ [기능 3] 책 자동 열림 (세션 기억)
+        if (sessionStorage.getItem('bookOpened') === 'true') {
+            book.classList.add('is-open');
+            book.style.transition = 'none'; 
+            setTimeout(() => book.style.transition = '', 100); 
+            bgm.play().catch(e => console.log("자동 재생 차단됨"));
+        }
+
+        // ✅ [기능 4] 날짜 자동 입력
+        document.getElementById('date-picker').valueAsDate = new Date();
+
+        // ✅ [기능 5] 책 열기 및 음악 재생
+        function openBook() {
+            book.classList.add('is-open');
+            sessionStorage.setItem('bookOpened', 'true');
+            bgm.play().catch(error => console.log("오디오 재생 실패:", error));
+        }
+
+        // ✅ [기능 6] 떠날 때 재생 시간 저장
+        window.addEventListener('beforeunload', () => {
+            sessionStorage.setItem('bgmTime', bgm.currentTime);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Journal Archive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Caveat:wght@700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+
+    <style>
+        /* ================= [디자인] 1. 배경 & 헤더 ================= */
+        body { 
+            font-family: 'Nanum Pen Script', cursive;
+            background-color: #1a120b; 
+            background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+            color: #e6dec8; 
+            padding: 40px 20px; 
+            margin: 0;
+        }
+
+        header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            border-bottom: 2px solid #3e2723; 
+            background: rgba(0,0,0,0.4); /* 배경 어둡게 */
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        
+        h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; margin: 0; color: #d4af37; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
+        
+        .subtitle {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: #bcaaa4;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .btn-home { 
+            color: #e6dec8; 
+            text-decoration: none; 
+            font-family: 'Cinzel', serif; 
+            font-size: 1.2rem; 
+            margin-top: 15px; 
+            display: inline-block; 
+            border-bottom: 1px solid transparent;
+            transition: 0.3s;
+        }
+        .btn-home:hover { color: #d4af37; border-bottom: 1px solid #d4af37; }
+
+        /* ================= [디자인] 2. 검색 필터 박스 ================= */
+        .filter-box { 
+            background: #3e2723; /* 진한 나무색 */
+            padding: 20px; 
+            border-radius: 5px; 
+            margin-bottom: 50px; 
+            display: flex; 
+            justify-content: center; 
+            gap: 15px; 
+            align-items: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5); 
+            border: 1px solid #5d4037; 
+            flex-wrap: wrap;
+        }
+
+        /* 입력창 스타일 (굵은 손글씨) */
+        select, input[type="date"] { 
+            padding: 10px 20px; 
+            background: #e6dec8; 
+            font-family: 'Caveat', cursive; 
+            font-size: 24px; 
+            font-weight: bold; 
+            color: #3e2723; 
+            border: none; 
+            border-radius: 3px; 
+            outline: none;
+        }
+
+        button { 
+            cursor: pointer; 
+            font-family: 'Cinzel', serif; 
+            font-weight: bold; 
+            padding: 12px 25px; 
+            font-size: 1rem;
+            background-color: #1a120b; 
+            color: #d4af37; 
+            border: 1px solid #d4af37; 
+            transition: 0.3s;
+        }
+        button:hover { background-color: #d4af37; color: #1a120b; }
+
+        /* ================= [디자인] 3. 책꽂이 & 일기 카드 ================= */
+        .bookshelf { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 40px; 
+            padding: 20px; 
+        }
+
+        .diary-card {
+            background: #f5f1e6; 
+            padding: 25px; 
+            position: relative;
+            border-radius: 5px 15px 15px 5px; /* 책 모양 */
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+            border-left: 18px solid #8d6e63; /* 두꺼운 책등 */
+            transition: transform 0.3s;
+            height: 420px; /* 높이 넉넉하게 */
+            display: flex; 
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .diary-card:hover { 
+            transform: translateY(-10px) scale(1.02); 
+            box-shadow: 15px 25px 40px rgba(0,0,0,0.6); 
+            z-index: 10; 
+        }
+
+        /* 날짜 */
+        .date { 
+            font-family: 'Cinzel', serif; 
+            font-size: 1.4rem; 
+            color: #3e2723; 
+            border-bottom: 2px solid #a1887f; 
+            padding-bottom: 8px; 
+            margin-bottom: 15px; 
+            font-weight: bold;
+        }
+        
+        /* 감정 뱃지 */
+        .emotion-badge {
+            align-self: flex-start; 
+            font-family: 'Cinzel', serif; 
+            font-size: 0.9rem; 
+            padding: 4px 10px; 
+            border: 1px solid #5d4037; 
+            margin-bottom: 15px; 
+            background: rgba(255,255,255,0.6);
+            color: #3e2723;
+            font-weight: bold;
+        }
+
+        /* 일기 본문 */
+        .text {
+            font-family: 'Caveat', 'Nanum Pen Script', cursive; 
+            font-size: 26px; 
+            font-weight: bold; 
+            color: #1a237e; /* 잉크색 */
+            line-height: 1.6; 
+            overflow-y: auto; 
+            flex-grow: 1; 
+            padding-right: 10px;
+            scrollbar-width: thin; 
+            scrollbar-color: #a1887f transparent;
+        }
+        
+        /* 스크롤바 */
+        .text::-webkit-scrollbar { width: 8px; }
+        .text::-webkit-scrollbar-thumb { background-color: #a1887f; border-radius: 4px; }
+
+        /* 인물 태그 */
+        .people-tags {
+            margin-top: 15px; 
+            padding-top: 15px; 
+            border-top: 1px dashed #bcaaa4;
+            font-size: 1.2rem; 
+            color: #5d4037; 
+            font-family: 'Caveat', cursive; 
+            font-weight: bold;
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis;
+        }
+
+        .empty-msg { 
+            grid-column: 1 / -1; 
+            text-align: center; 
+            color: #8d6e63; 
+            font-family: 'Caveat', cursive; 
+            font-size: 3rem; 
+            margin-top: 80px; 
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    
+    <audio id="bgm" loop>
+        <source src="/static/bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <header>
+        <h1>The Grand Archives</h1>
+        <p class="subtitle">"Where memories sleep in silence."</p>
+        <a href="/" class="btn-home">← Return to Desk</a>
+    </header>
+
+    <div class="filter-box">
+        <form action="/history" method="get" style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+            <select name="emotion">
+                <option value="All">All Emotions</option>
+                <option value="Happiness" {% if current_emotion == 'Happiness' %}selected{% endif %}>Happiness</option>
+                <option value="Sadness" {% if current_emotion == 'Sadness' %}selected{% endif %}>Sadness</option>
+                <option value="Anger" {% if current_emotion == 'Anger' %}selected{% endif %}>Anger</option>
+                <option value="Fear" {% if current_emotion == 'Fear' %}selected{% endif %}>Fear</option>
+                <option value="Disgust" {% if current_emotion == 'Disgust' %}selected{% endif %}>Disgust</option>
+                <option value="Surprise" {% if current_emotion == 'Surprise' %}selected{% endif %}>Surprise</option>
+            </select>
+
+            <select name="person">
+                <option value="All">All People</option>
+                {% for person_name in all_people %}
+                    <option value="{{ person_name }}" {% if current_person == person_name %}selected{% endif %}>
+                        {{ person_name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <input type="date" name="date" value="{{ current_date }}">
+
+            <button type="submit" class="btn-search">Search</button>
+            <a href="/history" style="color: #d4af37; text-decoration: underline; font-family: 'Cinzel', serif;">Reset</a>
+        </form>
+    </div>
+
+    <div class="bookshelf">
+        {% if diaries|length == 0 %}
+            <div class="empty-msg">
+                <p>No records found...</p>
+            </div>
+        {% endif %}
+
+        {% for diary in diaries %}
+        <div class="diary-card" style="border-left-color: {{ diary.color }};">
+            <div class="date">{{ diary.date }}</div>
+            
+            <div class="emotion-badge" style="color: {{ diary.color }}; border-color: {{ diary.color }};">
+                {{ diary.emotion }}
+            </div>
+            
+            <div class="text">{{ diary.text }}</div>
+            
+            {% if diary.people %}
+            <div class="people-tags">
+                👥 With: 
+                {% for p in diary.people %}
+                    <span style="color: {{ p.color }}; margin-right: 5px;">{{ p.name }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        const bgm = document.getElementById('bgm');
+        bgm.volume = 0.5;
+
+        // 저장된 시간 불러오기
+        const savedTime = sessionStorage.getItem('bgmTime');
+        if (savedTime) {
+            bgm.currentTime = savedTime;
+        }
+        
+        // 자동 재생
+        bgm.play().catch(e => console.log("자동 재생 차단됨"));
+
+        // 나갈 때 시간 저장
+        window.addEventListener('beforeunload', () => {
+            sessionStorage.setItem('bgmTime', bgm.currentTime);
+        });
+    </script>
+
+</body>
+</html>

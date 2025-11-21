@@ -1,0 +1,411 @@
+[
+    {
+        "date": "2025-11-20 14:34:38",
+        "text": "I am happy",
+        "emotion": "Happiness",
+        "color": "#f2c891",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "2025-11-20 14:42:11",
+        "text": "I am sad\r\n",
+        "emotion": "Sadness",
+        "color": "#282e33",
+        "tone": "Calm and Dark"
+    },
+    {
+        "date": "2025-11-20 14:42:25",
+        "text": "Jisung get married. I am so surprised",
+        "emotion": "Surprise",
+        "color": "#e8aef5",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "2025-11-20 14:45:12",
+        "text": "I am so sad",
+        "emotion": "Sadness",
+        "color": "#3c434c",
+        "tone": "Calm and Dark"
+    },
+    {
+        "date": "2025-11-20 14:47:23",
+        "text": "I am happy",
+        "emotion": "Happiness",
+        "color": "#f5db96",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "2025-11-20 14:48:36",
+        "text": "I am so sad\r\n",
+        "emotion": "Sadness",
+        "color": "#252d33",
+        "tone": "Calm and Dark"
+    },
+    {
+        "date": "2025-11-20 14:48:48",
+        "text": "I am so happy",
+        "emotion": "Happiness",
+        "color": "#f5df93",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "2025-11-20 14:48:57",
+        "text": "I have too much assignment",
+        "emotion": "Happiness",
+        "color": "#ecf392",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "2025-11-20 14:51:51",
+        "text": "I am so happy",
+        "emotion": "Happiness",
+        "color": "#f2df91",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "2025-11-20 14:53:22",
+        "text": "I am so happy",
+        "emotion": "Happiness",
+        "color": "#f2c891",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "2025-11-20 14:55:43",
+        "text": "I am so happy",
+        "emotion": "Happiness",
+        "color": "#fdd49a",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "2025-11-20 14:57:50",
+        "text": "I am so happy",
+        "emotion": "Happiness",
+        "color": "#f8db99",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "2025-11-20 14:59:15",
+        "text": "I am happy",
+        "emotion": "Happiness",
+        "color": "#f1e191",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "2025-11-20 15:02:07",
+        "text": "I am happy",
+        "emotion": "Happiness",
+        "color": "#f5eb93",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "2025-11-20 15:04:25",
+        "text": "I am happy",
+        "emotion": "Happiness",
+        "color": "#fbd496",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "2025-11-20",
+        "text": "I am so happy",
+        "emotion": "Happiness",
+        "color": "#f6fe98",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "2025-11-18",
+        "text": "I am sad\r\n",
+        "emotion": "Sadness",
+        "color": "#2a2833",
+        "color_name": "Grey",
+        "tone": "Calm and Dark"
+    },
+    {
+        "date": "2025-11-20",
+        "text": "I am good",
+        "emotion": "Happiness",
+        "color": "#f4fa96",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I am sad",
+        "emotion": "Sadness",
+        "color": "#4b485a",
+        "color_name": "Neutral Tone",
+        "tone": "Calm and Dark"
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I am sad",
+        "emotion": "Sadness",
+        "color": "#3b4255",
+        "color_name": "Neutral Tone",
+        "tone": "Calm and Dark"
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I am happy",
+        "emotion": "Happiness",
+        "color": "#fcec97",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "November 22, 2025",
+        "text": "I am cool",
+        "emotion": "Disgust",
+        "color": "#404e3d",
+        "color_name": "Neutral Tone",
+        "tone": "Calm and Dark"
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I meet my best friend today. I played with him and it was really fun",
+        "emotion": "Happiness",
+        "color": "#f1f895",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I am mad",
+        "emotion": "Anger",
+        "color": "#8b4840",
+        "color_name": "Neutral Tone",
+        "tone": "Calm and Dark"
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I meet friends. They are my best friends. I am so glad to meet them.",
+        "emotion": "Happiness",
+        "color": "#f2df91",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I am so sad. Because my ex-grilfriend get married",
+        "emotion": "Sadness",
+        "color": "#384752",
+        "color_name": "Neutral Tone",
+        "tone": "Calm and Dark"
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I met a friend. I don't like him",
+        "emotion": "Happiness",
+        "color": "#f9dd95",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I met a friend. It was fun",
+        "emotion": "Happiness",
+        "color": "#f4f492",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I meet a great friend",
+        "emotion": "Happiness",
+        "color": "#ebef98",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel"
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I meet my friend James. I had a great time with him",
+        "emotion": "Happiness",
+        "color": "#fafb97",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel",
+        "people": [
+            {
+                "name": "I",
+                "emotion": "Happiness",
+                "color": "#fbf696",
+                "count": 2
+            },
+            {
+                "name": "James",
+                "emotion": "Happiness",
+                "color": "#f8fd9c",
+                "count": 1
+            }
+        ]
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I heard Blake's lesson. It was great.",
+        "emotion": "Happiness",
+        "color": "#fae398",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel",
+        "people": [
+            {
+                "name": "I",
+                "emotion": "Happiness",
+                "color": "#f5ca93",
+                "count": 1
+            },
+            {
+                "name": "Blake",
+                "emotion": "Happiness",
+                "color": "#f3e297",
+                "count": 1
+            }
+        ]
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I met Kevin. He made me angry",
+        "emotion": "Anger",
+        "color": "#964638",
+        "color_name": "Neutral Tone",
+        "tone": "Calm and Dark",
+        "people": [
+            {
+                "name": "I",
+                "emotion": "Happiness",
+                "color": "#f3f895",
+                "count": 1
+            },
+            {
+                "name": "Kevin",
+                "emotion": "Happiness",
+                "color": "#fde5a1",
+                "count": 1
+            }
+        ]
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I heard Blake's lesson. It was great",
+        "emotion": "Happiness",
+        "color": "#f9ee9c",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel",
+        "people": [
+            {
+                "name": "I",
+                "emotion": "Happiness",
+                "color": "#f2e09b",
+                "count": 1
+            },
+            {
+                "name": "Blake",
+                "emotion": "Happiness",
+                "color": "#fed098",
+                "count": 1
+            }
+        ]
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I meet my best friend Anna. I am so surprised that she get married",
+        "emotion": "Happiness",
+        "color": "#f7f094",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel",
+        "people": [
+            {
+                "name": "I",
+                "emotion": "Happiness",
+                "color": "#fbe396",
+                "count": 2
+            },
+            {
+                "name": "Anna",
+                "emotion": "Happiness",
+                "color": "#f5d593",
+                "count": 1
+            }
+        ]
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I like Julie",
+        "emotion": "Disgust",
+        "color": "#4c533e",
+        "color_name": "Neutral Tone",
+        "tone": "Calm and Dark",
+        "people": [
+            {
+                "name": "I",
+                "emotion": "Disgust",
+                "color": "#2b331f",
+                "count": 1
+            },
+            {
+                "name": "Julie",
+                "emotion": "Disgust",
+                "color": "#415847",
+                "count": 1
+            }
+        ]
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "",
+        "emotion": "Happiness",
+        "color": "#f1e690",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel",
+        "people": []
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "지웅이 죽이고싶다",
+        "emotion": "Happiness",
+        "color": "#f4ef92",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel",
+        "people": []
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "I'm tired but today was quite nice day. Tomorrow will be better I hope.",
+        "emotion": "Disgust",
+        "color": "#2c3931",
+        "color_name": "Grey",
+        "tone": "Calm and Dark",
+        "people": [
+            {
+                "name": "I",
+                "emotion": "Happiness",
+                "color": "#fcf497",
+                "count": 2
+            },
+            {
+                "name": "Tomorrow",
+                "emotion": "Disgust",
+                "color": "#424e32",
+                "count": 1
+            }
+        ]
+    },
+    {
+        "date": "November 20, 2025",
+        "text": "Today, I went to search one room for my next year. But there was no good one room.",
+        "emotion": "Happiness",
+        "color": "#f7d198",
+        "color_name": "Bright Color",
+        "tone": "Bright and Pastel",
+        "people": [
+            {
+                "name": "I",
+                "emotion": "Happiness",
+                "color": "#f9ee9c",
+                "count": 1
+            }
+        ]
+    }
+]

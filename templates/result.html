@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis Result</title>
+    <style>
+        body { 
+            background-color: {{ color }};
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center; 
+            padding: 50px 20px;
+            transition: background-color 1s ease;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+        .color-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: {{ color }};
+            margin: 0 auto 30px;
+            border: 6px solid white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        h1 {
+            color: #222;
+            margin: 0 0 20px 0;
+            font-size: 1.5em;
+        }
+        .emotion-title { 
+            font-size: 3em;
+            color: {{ color }};
+            font-weight: bold;
+            margin: 20px 0 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .info-section {
+            background: #f8f8f8;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        .info-section p {
+            margin: 12px 0;
+            font-size: 1.1em;
+            color: #333;
+            border-bottom: 1px solid #eee; /* 줄긋기 추가 */
+            padding-bottom: 8px;
+        }
+        .info-section p:last-child {
+            border-bottom: none;
+        }
+        .info-section strong {
+            color: {{ color }};
+            font-weight: 600;
+            display: inline-block;
+            width: 180px; /* 라벨 간격 맞추기 */
+        }
+        .diary-label {
+            font-weight: bold;
+            color: #222;
+            margin: 30px 0 15px 0;
+            text-align: left;
+            font-size: 1.1em;
+        }
+        .diary-box {
+            background: #f0f0f0;
+            padding: 20px;
+            border-left: 5px solid {{ color }};
+            border-radius: 8px;
+            text-align: left;
+            color: #444;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            word-wrap: break-word;
+        }
+        .button-group {
+            margin-top: 30px;
+        }
+        button {
+            padding: 14px 40px;
+            font-size: 1em;
+            background-color: {{ color }};
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            filter: brightness(1.1); /* 마우스 올리면 살짝 밝게 */
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="color-circle"></div>
+        
+        <h1>✨ AI Emotion Analysis Result</h1>
+        <div class="emotion-title">{{ emotion }}</div>
+        
+        <div class="info-section">
+            <p>
+                <strong>📅 Date:</strong> {{ date }}
+            </p>
+            <p>
+                <strong>Recommended Color:</strong> {{ color_name }}
+            </p>
+            <p>
+                <strong>Tone:</strong> {{ tone }}
+            </p>
+            <p>
+                <strong>Color Code:</strong> <code style="background: #eee; padding: 5px 10px; border-radius: 5px; color: #333;">{{ color }}</code>
+            </p>
+        </div>
+        
+        <p class="diary-label">📝 Your Diary Entry:</p>
+        <div class="diary-box">{{ text }}</div>
+        
+        <div class="button-group">
+            <a href="/">
+                <button>✏️ Write Another Diary</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
