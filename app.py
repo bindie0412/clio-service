@@ -1,142 +1,196 @@
-﻿from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 import json
 import os
-import random
-import requests
-import base64
 from datetime import datetime
-from our_model.emotion_model import improved_analyzer
+# 님 기존 코드의 AI 모델 불러오기
+from our_model.emotion_model import improved_analyzer 
 
 app = Flask(__name__)
+app.secret_key = 'acdt_secret_key_1234'  # 세션 암호화 키 (필수)
 
 # --- 경로 설정 ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_FILE = os.path.join(BASE_DIR, 'diaries.json')
+DIARY_FILE = os.path.join(BASE_DIR, 'diaries.json')
+USER_FILE = os.path.join(BASE_DIR, 'users.json') # 사용자 정보 저장 파일
 
-# --- Spotify 설정 ---
-SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
-SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
+# --- [Helper] 데이터 로드/저장 함수 (통합됨) ---
+def load_data(filename, default_type=dict):
+    if not os.path.exists(filename):
+        return default_type()
+    try:
+        with open(filename, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except:
+        return default_type()
 
-EMOTION_QUERIES = {
-    "joy": ["happy mood", "feel-good", "upbeat pop", "party"],
-    "sadness": ["sad", "ballad", "emotional", "piano"],
-    "anger": ["angry", "rock", "metal", "hard"],
-    "fear": ["calm", "relaxing", "comfort"],
-    "surprise": ["exciting", "electronic", "EDM"],
-    "disgust": ["chill", "lo-fi", "indie"],
-}
+def save_data(filename, data):
+    with open(filename, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
 
-def get_spotify_token():
-    """Client Credentials Flow 로 access token 발급"""
-    if not SPOTIFY_CLIENT_ID or not SPOTIFY_CLIENT_SECRET:
-        return None
-    auth_str = f"{SPOTIFY_CLIENT_ID}:{SPOTIFY_CLIENT_SECRET}"
-    b64_auth = base64.b64encode(auth_str.encode()).decode()
-    headers = {
-        "Authorization": f"Basic {b64_auth}",
-        "Content-Type": "application/x-www-form-urlencoded",
-    }
-    data = {"grant_type": "client_credentials"}
-    resp = requests.post("https://accounts.spotify.com/api/token", headers=headers, data=data)
-    if resp.status_code != 200:
-        print("⚠️ Spotify token error:", resp.text)
-        return None
-    return resp.json().get("access_token")
-
-def get_random_track_by_emotion(emotion: str):
-    """감정에 맞는 검색어로 Spotify에서 랜덤 트랙 하나 가져오기"""
-    token = get_spotify_token()
-    if not token:
-        return None
-
-    query_list = EMOTION_QUERIES.get(emotion, ["mood"])
-    query = random.choice(query_list)
-
-    headers = {"Authorization": f"Bearer {token}"}
-    params = {
-        "q": query,
-        "type": "track",
-        "limit": 20,
-        "market": "KR",
-    }
-    resp = requests.get("https://api.spotify.com/v1/search", headers=headers, params=params)
-    if resp.status_code != 200:
-        print("⚠️ Spotify search error:", resp.text)
-        return None
-
-    items = resp.json().get("tracks", {}).get("items", [])
-    if not items:
-        return None
-
-    track = random.choice(items)
-    return track.get("external_urls", {}).get("spotify")
-
-# --- 날짜 변환 ---
+# --- [Helper] 날짜 변환 ---
 def format_english_date(date_str):
     try:
         date_obj = datetime.strptime(date_str, '%Y-%m-%d')
         return date_obj.strftime('%B %d, %Y')
     except ValueError:
-        return date_str
+        return date_str 
 
-# --- 저장 함수 ---
-def save_diary(data):
-    try:
-        with open(DB_FILE, 'r', encoding='utf-8') as f:
-            diaries = json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        diaries = []
-    diaries.append(data)
-    with open(DB_FILE, 'w', encoding='utf-8') as f:
-        json.dump(diaries, f, ensure_ascii=False, indent=4)
-    print(f"✅ Saved: {data['date']}")
-
-# --- 불러오기 함수 ---
-def load_diaries():
-    try:
-        with open(DB_FILE, 'r', encoding='utf-8') as f:
-            diaries = json.load(f)
-            diaries.reverse()
-            return diaries
-    except (FileNotFoundError, json.JSONDecodeError):
-        return []
-
-# --- 모든 등장인물 이름 모으기 ---
-def get_all_people():
-    diaries = load_diaries()
+# --- [Helper] 특정 사용자의 등장인물만 모으기 ---
+def get_user_people(user_diaries):
     people_set = set()
-    for diary in diaries:
+    for diary in user_diaries:
         if 'people' in diary:
             for p in diary['people']:
                 people_set.add(p['name'])
     return sorted(list(people_set))
 
-# ================= 라우팅 =================
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+# ================= 라우팅 (Routes) =================
 
+# 1. [로그인 페이지] 앱 접속 시 첫 화면
+@app.route('/', methods=['GET', 'POST'])
+def login_page():
+    # 이미 로그인 되어있으면 바로 글쓰기 화면으로
+    if 'user' in session:
+        return redirect(url_for('write_diary'))
+    return render_template('login.html') # 새로 만든 login.html
+
+# 2. [기능] 로그인 처리
+@app.route('/login', methods=['POST'])
+def login():
+    users = load_data(USER_FILE, dict)
+    username = request.form.get('username')
+    password = request.form.get('password')
+    
+    if username in users and users[username] == password:
+        session['user'] = username
+        return redirect(url_for('write_diary'))
+    else:
+        return "<script>alert('아이디 또는 비밀번호가 틀렸습니다.'); location.href='/';</script>"
+
+# 3. [기능] 회원가입 처리
+@app.route('/register', methods=['POST'])
+def register():
+    users = load_data(USER_FILE, dict)
+    username = request.form.get('username')
+    password = request.form.get('password')
+    
+    if username in users:
+        return "<script>alert('이미 존재하는 이름입니다.'); location.href='/';</script>"
+    
+    # 사용자 저장
+    users[username] = password
+    save_data(USER_FILE, users)
+    
+    # 다이어리 데이터에도 빈 방(List) 만들기
+    all_diaries = load_data(DIARY_FILE, dict)
+    if username not in all_diaries:
+        all_diaries[username] = []
+    save_data(DIARY_FILE, all_diaries)
+    
+    return "<script>alert('등록 완료! 로그인해주세요.'); location.href='/';</script>"
+
+# 4. [기능] 로그아웃
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login_page'))
+
+# 5. [메인] 일기 작성 페이지 (로그인 한 사람만 접근 가능)
+@app.route('/write')
+def write_diary():
+    if 'user' not in session:
+        return redirect(url_for('login_page'))
+    
+    # index.html에 사용자 이름도 같이 보내줌 (헤더 표시용)
+    return render_template('index.html', user=session['user'])
+
+# 6. [기능] 분석 및 저장 (핵심 로직 통합)
+@app.route('/analyze', methods=['POST'])
+def analyze():
+    if 'user' not in session:
+        return redirect(url_for('login_page'))
+
+    current_user = session['user']
+    
+    # 폼 데이터 받기
+    raw_date = request.form['date']
+    diary_text = request.form['diary']
+    english_date = format_english_date(raw_date)
+    
+    # --- [AI 모델 사용] 님 코드 그대로 유지 ---
+    result = improved_analyzer.analyze_emotion_and_color(diary_text)
+    
+    # 저장할 데이터 구조 생성
+    new_entry = {
+        'date': english_date,
+        'text': diary_text,
+        'emotion': result['emotion'],
+        'color': result['color_hex'],
+        'color_name': result['color_name'],
+        'tone': result['tone'],
+        'people': result['people']
+    }
+    
+    # --- [저장 로직 변경] 사용자별 방에 저장 ---
+    all_diaries = load_data(DIARY_FILE, dict)
+    
+    # 혹시 사용자 방이 없으면 생성 (에러 방지)
+    if current_user not in all_diaries:
+        all_diaries[current_user] = []
+        
+    all_diaries[current_user].append(new_entry) # 리스트에 추가
+    save_data(DIARY_FILE, all_diaries) # 전체 저장
+    
+    print(f"✅ Saved for {current_user}: {english_date}")
+    
+    return render_template('result.html', 
+                           date=english_date,
+                           text=diary_text,
+                           emotion=result['emotion'],
+                           color=result['color_hex'],
+                           color_name=result['color_name'],
+                           tone=result['tone'],
+                           people=result['people'])
+
+# 7. [히스토리] 내 일기만 보기 + 필터링
 @app.route('/history')
 def history():
+    if 'user' not in session:
+        return redirect(url_for('login_page'))
+        
+    current_user = session['user']
+    
+    # 1. 전체 데이터 불러오기
+    all_data = load_data(DIARY_FILE, dict)
+    
+    # 2. [중요] '내 일기'만 꺼내오기 (없으면 빈 리스트)
+    my_diaries = all_data.get(current_user, [])
+    my_diaries.reverse() # 최신순 정렬
+    
+    # 3. 필터 조건 받기
     filter_emotion = request.args.get('emotion')
     filter_date = request.args.get('date')
     filter_person = request.args.get('person')
 
-    all_diaries = load_diaries()
-    all_people_list = get_all_people()
+    # 4. 내 일기에서 등장인물 목록 뽑기
+    my_people_list = get_user_people(my_diaries)
 
     filtered_diaries = []
     
-    for diary in all_diaries:
+    # 5. 필터링 로직 (님 코드 로직 유지)
+    for diary in my_diaries:
+        # 감정 필터
         if filter_emotion and filter_emotion != "All" and diary['emotion'] != filter_emotion:
             continue
         
+        # 날짜 필터
         if filter_date:
             english_filter_date = format_english_date(filter_date)
             if diary['date'] != english_filter_date:
                 continue
         
+        # 인물 필터
         if filter_person and filter_person != "All":
             diary_people_names = [p['name'] for p in diary.get('people', [])]
             if filter_person not in diary_people_names:
@@ -144,49 +198,13 @@ def history():
             
         filtered_diaries.append(diary)
 
-    return render_template(
-        'history.html',
-        diaries=filtered_diaries,
-        all_people=all_people_list,
-        current_emotion=filter_emotion,
-        current_date=filter_date,
-        current_person=filter_person
-    )
-
-@app.route('/analyze', methods=['POST'])
-def analyze():
-    if request.method == 'POST':
-        raw_date = request.form['date']
-        diary_text = request.form['diary']
-        english_date = format_english_date(raw_date)
-        
-        result = improved_analyzer.analyze_emotion_and_color(diary_text)
-
-        # Spotify에서 감정에 맞는 랜덤 트랙 하나 가져오기
-        spotify_link = get_random_track_by_emotion(result['emotion'])
-        
-        diary_data = {
-            'date': english_date,
-            'text': diary_text,
-            'emotion': result['emotion'],
-            'color': result['color_hex'],
-            'color_name': result['color_name'],
-            'tone': result['tone'],
-            'people': result['people'],
-        }
-        save_diary(diary_data)
-        
-        return render_template(
-            'result.html',
-            date=english_date,
-            text=diary_text,
-            emotion=result['emotion'],
-            color=result['color_hex'],
-            color_name=result['color_name'],
-            tone=result['tone'],
-            people=result['people'],
-            spotify_link=spotify_link,
-        )
+    return render_template('history.html', 
+                           diaries=filtered_diaries,
+                           all_people=my_people_list, # 내 친구 목록만 전달
+                           current_emotion=filter_emotion,
+                           current_date=filter_date,
+                           current_person=filter_person,
+                           user=current_user) # 사용자 이름도 전달
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001) # 포트 충돌 방지 5001

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,10 +6,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Caveat:wght@700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     
     <style>
-        /* ================= [?붿옄?? 1. ?꾩껜 諛곌꼍 ================= */
+        /* ================= [디자인] 1. 전체 배경 ================= */
         body { 
             font-family: 'Nanum Pen Script', cursive;
-            background-color: #1a120b; /* 吏꾪븳 怨좊룞??*/
+            background-color: #1a120b; /* 진한 고동색 */
             background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
             margin: 0;
             height: 100vh;
@@ -17,29 +17,52 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            perspective: 1500px; /* 3D ?낆껜媛?*/
+            perspective: 1500px; /* 3D 입체감 */
         }
 
-        /* ================= [?붿옄?? 2. 梨??좊땲硫붿씠??? ================= */
+        /* ================= [추가됨] 사용자 정보 & 로그아웃 패널 ================= */
+        .user-panel {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            z-index: 100;
+            font-family: 'Cinzel', serif;
+            color: #d4af37;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid #5d4037;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .user-panel span { font-weight: bold; margin-right: 10px; }
+        .user-panel a { 
+            color: #ff6b6b; 
+            text-decoration: none; 
+            font-weight: bold; 
+            transition: 0.3s;
+        }
+        .user-panel a:hover { color: #ffeb3b; text-decoration: underline; }
+
+        /* ================= [디자인] 2. 책 애니메이션 틀 ================= */
         .book-wrapper {
             position: relative;
-            width: 480px; /* ?ロ엺 梨??덈퉬 */
-            height: 680px; /* 梨??믪씠 */
+            width: 480px; /* 닫힌 책 너비 */
+            height: 680px; /* 책 높이 */
             transition: width 1s ease-in-out, transform 1s ease-in-out; 
             transform-style: preserve-3d;
         }
 
-        /* 梨낆씠 ?대졇?????덈퉬 */
+        /* 책이 열렸을 때 너비 */
         .book-wrapper.is-open {
             width: 1100px; 
         }
 
-        /* ================= [?붿옄?? 3. ?쒖? (Cover) ================= */
+        /* ================= [디자인] 3. 표지 (Cover) ================= */
         .cover {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-color: #3e2723; /* 媛二쎌깋 */
+            background-color: #3e2723; /* 가죽색 */
             background-image: repeating-linear-gradient(45deg, #3e2723 0px, #3e2723 2px, #4e342e 2px, #4e342e 4px);
             border: 2px solid #1a120b;
             border-radius: 5px 15px 15px 5px;
@@ -49,18 +72,18 @@
             justify-content: center;
             align-items: center;
             z-index: 10;
-            transform-origin: left; /* ?쇱そ??異뺤쑝濡??뚯쟾 */
+            transform-origin: left; /* 왼쪽을 축으로 회전 */
             transition: transform 1s ease-in-out, opacity 0.5s ease-in-out;
             cursor: pointer;
         }
 
-        /* ?쒖? 湲덊뀒 ?μ떇 */
+        /* 표지 금테 장식 */
         .cover::after {
             content: ''; position: absolute; top: 25px; bottom: 25px; left: 25px; right: 25px;
             border: 3px double #d4af37; pointer-events: none;
         }
 
-        /* ?쒖? ?대┝ ?④낵 (?뚯쟾) */
+        /* 표지 열림 효과 (회전) */
         .book-wrapper.is-open .cover {
             transform: rotateY(-180deg);
             opacity: 0;
@@ -70,7 +93,7 @@
         .cover h1 { 
             font-family: 'Cinzel', serif; 
             font-size: 3.8rem; 
-            color: #d4af37; /* 湲덉깋 */
+            color: #d4af37; /* 금색 */
             text-shadow: 3px 3px 6px rgba(0,0,0,0.8); 
             margin: 0; text-align: center; 
             line-height: 1.2;
@@ -93,14 +116,14 @@
         }
         @keyframes blink { 50% { opacity: 0.5; } }
 
-        /* ================= [?붿옄?? 4. ?띿? (Inner Pages) ================= */
+        /* ================= [디자인] 4. 속지 (Inner Pages) ================= */
         .inner-pages {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; 
             opacity: 0; 
             transition: opacity 1s ease-in-out; 
             pointer-events: none;
-            background-color: #e6dec8; /* 醫낆씠??*/
+            background-color: #e6dec8; /* 종이색 */
             box-shadow: inset 0 0 60px rgba(0,0,0,0.15); 
             border-radius: 5px; 
             overflow: hidden;
@@ -110,19 +133,19 @@
 
         .page { flex: 1; padding: 50px; display: flex; flex-direction: column; justify-content: center; position: relative; }
         
-        /* ?쇱そ ?섏씠吏 (?좎쭨, 硫붾돱) */
+        /* 왼쪽 페이지 (날짜, 메뉴) */
         .page-left { 
             background: linear-gradient(to right, #e6dec8 95%, #d7ccc8 100%); 
             border-right: 1px solid #d7ccc8; 
             align-items: center; 
         }
         
-        /* ?ㅻⅨ履??섏씠吏 (?낅젰李? */
+        /* 오른쪽 페이지 (입력창) */
         .page-right { 
             background: linear-gradient(to left, #e6dec8 95%, #d7ccc8 100%); 
         }
 
-        /* ?대? ?띿뒪???ㅽ???*/
+        /* 내부 텍스트 스타일 */
         h2 { font-family: 'Cinzel', serif; font-size: 3.2rem; color: #3e2723; margin: 0 0 10px 0; text-shadow: 1px 1px 0 rgba(255,255,255,0.5); }
         
         .subtitle { 
@@ -135,7 +158,7 @@
         
         label { font-family: 'Cinzel', serif; color: #5d4037; font-size: 1.6rem; margin-bottom: 15px; font-weight: bold; }
         
-        /* ???좎쭨 ?낅젰移? 援듭? ?먭???*/
+        /* 날짜 입력칸 */
         input[type="date"] { 
             padding: 10px; 
             font-size: 32px; 
@@ -150,38 +173,29 @@
             outline: none; 
         }
 
-        /* ??[?듭떖 ?섏젙] ?쇨린 ?낅젰李? 以?媛꾧꺽 PX ?⑥쐞 怨좎젙 (?덈? ???닿툔?? */
+        /* 일기 입력창 */
         textarea { 
             width: 100%; 
             height: 100%; 
             padding-left: 15px;
             padding-right: 15px;
-            
-            /* 泥?以??꾩튂 誘몄꽭 議곗젙 */
             padding-top: 12px; 
-            
             font-family: 'Caveat', 'Nanum Pen Script', cursive; 
             font-size: 30px; 
-            font-weight: 700; /* 援듦쾶 */
-            
-            /* 以?媛꾧꺽怨?諛곌꼍 以??믪씠瑜?60px濡??꾨꼍 ?쇱튂 */
+            font-weight: 700; 
             line-height: 60px; 
-            
             border: none; 
             resize: none; 
             outline: none; 
             background-color: transparent; 
-            
-            /* 以?湲뗪린 */
             background-image: linear-gradient(transparent 97%, #bcaaa4 97%); 
             background-size: 100% 60px; 
-            
-            color: #1a237e; /* 吏꾪븳 ?됲겕??*/
+            color: #1a237e; 
         }
         
         textarea::placeholder { color: #a1887f; font-size: 30px; font-weight: normal; opacity: 0.7; }
 
-        /* 踰꾪듉 ?ㅽ???*/
+        /* 버튼 스타일 */
         .btn-analyze { 
             position: absolute; bottom: 40px; right: 50px; 
             padding: 15px 40px; 
@@ -213,7 +227,7 @@
         }
         .btn-history:hover { background-color: #5d4037; color: #e6dec8; }
 
-        /* 梨낃컝??*/
+        /* 책갈피 */
         .bookmark { position: absolute; top: 0; left: 60px; width: 45px; height: 90px; background: #c0392b; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
 
     </style>
@@ -223,6 +237,11 @@
     <audio id="bgm" loop>
         <source src="/static/bgm.mp3" type="audio/mpeg">
     </audio>
+
+    <div class="user-panel">
+        <span>Keeper: {{ user }}</span>
+        <a href="/logout">[Logout]</a>
+    </div>
 
     <div class="book-wrapper" id="book">
         <div class="cover" onclick="openBook()">
@@ -259,31 +278,31 @@
         
         bgm.volume = 0.5;
 
-        // ??[湲곕뒫 2] ?뚯븙 ?댁뼱?ｊ린 (?쒓컙 遺덈윭?ㅺ린)
+        // 음악 이어듣기
         const savedTime = sessionStorage.getItem('bgmTime');
         if (savedTime) {
             bgm.currentTime = savedTime;
         }
 
-        // ??[湲곕뒫 3] 梨??먮룞 ?대┝ (?몄뀡 湲곗뼲)
+        // 책 자동 열림 확인
         if (sessionStorage.getItem('bookOpened') === 'true') {
             book.classList.add('is-open');
             book.style.transition = 'none'; 
             setTimeout(() => book.style.transition = '', 100); 
-            bgm.play().catch(e => console.log("?먮룞 ?ъ깮 李⑤떒??));
+            bgm.play().catch(e => console.log("자동 재생 차단됨"));
         }
 
-        // ??[湲곕뒫 4] ?좎쭨 ?먮룞 ?낅젰
+        // 날짜 자동 입력
         document.getElementById('date-picker').valueAsDate = new Date();
 
-        // ??[湲곕뒫 5] 梨??닿린 諛??뚯븙 ?ъ깮
+        // 책 열기
         function openBook() {
             book.classList.add('is-open');
             sessionStorage.setItem('bookOpened', 'true');
-            bgm.play().catch(error => console.log("?ㅻ뵒???ъ깮 ?ㅽ뙣:", error));
+            bgm.play().catch(error => console.log("오디오 재생 실패:", error));
         }
 
-        // ??[湲곕뒫 6] ?좊궇 ???ъ깮 ?쒓컙 ???
+        // 떠날 때 시간 저장
         window.addEventListener('beforeunload', () => {
             sessionStorage.setItem('bgmTime', bgm.currentTime);
         });
