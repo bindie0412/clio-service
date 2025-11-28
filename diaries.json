@@ -17,5 +17,119 @@
             ]
         }
     ],
-    "Shion": []
+    "Shion": [],
+    "abc": [
+        {
+            "date": "November 28, 2025",
+            "text": "I am so sad",
+            "emotion": "Sadness",
+            "color": "#2c2936",
+            "color_name": "Grey",
+            "tone": "Calm and Dark",
+            "people": [
+                {
+                    "name": "I",
+                    "emotion": "Sadness",
+                    "color": "#383049",
+                    "count": 1
+                }
+            ],
+            "id": "a12c212ea53fbbbe"
+        },
+        {
+            "date": "November 28, 2025",
+            "text": "The dusty smell coming from the carpet made me regret stepping on it.",
+            "emotion": "Anger",
+            "color": "#8a372d",
+            "color_name": "Neutral Tone",
+            "tone": "Calm and Dark",
+            "people": [
+                {
+                    "name": "The",
+                    "emotion": "Anger",
+                    "color": "#7e2f48",
+                    "count": 1
+                }
+            ],
+            "id": "9d129c9848811a5c"
+        },
+        {
+            "date": "November 28, 2025",
+            "text": "I instantly backed away when I saw mold covering the walls.",
+            "emotion": "Disgust",
+            "color": "#294c28",
+            "color_name": "Grey",
+            "tone": "Calm and Dark",
+            "people": [
+                {
+                    "name": "I",
+                    "emotion": "Disgust",
+                    "color": "#465332",
+                    "count": 2
+                }
+            ],
+            "id": "b0d51c46ee4b69d3"
+        },
+        {
+            "date": "November 28, 2025",
+            "text": "The dusty smell coming from the carpet made me regret stepping on it.",
+            "emotion": "Anger",
+            "color": "#8b2e3e",
+            "color_name": "Neutral Tone",
+            "tone": "Calm and Dark",
+            "people": [
+                {
+                    "name": "The",
+                    "emotion": "Anger",
+                    "color": "#612934",
+                    "count": 1
+                }
+            ],
+            "id": "6efdb306aa67ac3a"
+        },
+        {
+            "date": "November 28, 2025",
+            "text": "The professor gave me too many assignments",
+            "emotion": "Anger",
+            "color": "#984e46",
+            "color_name": "Neutral Tone",
+            "tone": "Calm and Dark",
+            "people": [
+                {
+                    "name": "The",
+                    "emotion": "Anger",
+                    "color": "#822c42",
+                    "count": 1
+                }
+            ],
+            "id": "3e0cf31f321a22f7"
+        },
+        {
+            "date": "November 28, 2025",
+            "text": "",
+            "emotion": "Happiness",
+            "color": "#f7fc97",
+            "color_name": "Bright Color",
+            "tone": "Bright and Pastel",
+            "people": [],
+            "id": "29946a54e416adbd"
+        },
+        {
+            "date": "November 28, 2025",
+            "text": "The professor gave me too many assignments",
+            "emotion": "Anger",
+            "color": "#693342",
+            "color_name": "Neutral Tone",
+            "tone": "Calm and Dark",
+            "people": [
+                {
+                    "name": "The",
+                    "emotion": "Anger",
+                    "color": "#5f212e",
+                    "count": 1
+                }
+            ],
+            "id": "7bb8a930257128d1"
+        }
+    ]
 }

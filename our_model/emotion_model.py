@@ -119,18 +119,6 @@ class ImprovedEmotionAnalyzer:
             cache_dir = os.path.dirname(__file__)
             cache_file = os.path.join(cache_dir, 'model_cache.pkl')
             
-            if self.use_cache and os.path.exists(cache_file):
-                try:
-                    with open(cache_file, 'rb') as f:
-                        cached_data = pickle.load(f)
-                        self.text_model = cached_data.get('text_model')
-                        self.text_vectorizer = cached_data.get('text_vectorizer')
-                        if self.text_model and self.text_vectorizer:
-                            print("✅ Cached text model loaded!")
-                            return
-                except Exception as e:
-                    print(f"⚠️ Failed to load cache: {e}, Retraining...")
-            
             csv_path = os.path.join(os.path.dirname(__file__), 'emotion_sentimen_dataset.csv')
             
             if not os.path.exists(csv_path):
@@ -190,20 +178,6 @@ class ImprovedEmotionAnalyzer:
         try:
             cache_dir = os.path.dirname(__file__)
             cache_file = os.path.join(cache_dir, 'model_cache.pkl')
-            
-            if self.use_cache and self.color_model is not None:
-                 return
-
-            if self.use_cache and os.path.exists(cache_file):
-                try:
-                    with open(cache_file, 'rb') as f:
-                        cached_data = pickle.load(f)
-                        self.color_model = cached_data.get('color_model')
-                        self.color_encoder = cached_data.get('color_encoder')
-                        if self.color_model and self.color_encoder:
-                            return
-                except:
-                    pass 
             
             csv_path = os.path.join(os.path.dirname(__file__), 'your_file_name.csv')
             

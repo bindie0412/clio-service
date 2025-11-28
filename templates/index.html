@@ -12,12 +12,13 @@
             background-color: #1a120b; /* 진한 고동색 */
             background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
             margin: 0;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
             perspective: 1500px; /* 3D 입체감 */
+            padding: 20px;
         }
 
         /* ================= [추가됨] 사용자 정보 & 로그아웃 패널 ================= */
@@ -230,6 +231,87 @@
         /* 책갈피 */
         .bookmark { position: absolute; top: 0; left: 60px; width: 45px; height: 90px; background: #c0392b; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
 
+        @media (max-width: 1100px) {
+            body {
+                padding: 30px 15px 60px;
+                align-items: flex-start;
+            }
+            .user-panel {
+                position: static;
+                margin-bottom: 15px;
+            }
+        }
+
+        body.mobile-mode {
+            perspective: none;
+            padding-top: 20px;
+            padding-bottom: 40px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        body.mobile-mode .user-panel {
+            position: static;
+            transform: none;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            order: 2;
+        }
+        body.mobile-mode .user-panel span {
+            margin-right: 0;
+            font-size: 1rem;
+        }
+        body.mobile-mode .book-wrapper {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            transform: none;
+            order: 1;
+        }
+        body.mobile-mode .cover {
+            display: none;
+        }
+        body.mobile-mode .inner-pages {
+            position: relative;
+            opacity: 1;
+            pointer-events: auto;
+            flex-direction: column;
+            height: auto;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+        }
+        body.mobile-mode .page {
+            padding: 30px;
+        }
+        body.mobile-mode .page-left {
+            border-right: none;
+            border-bottom: 1px solid #d7ccc8;
+        }
+        body.mobile-mode h2 { font-size: 2.4rem; }
+        body.mobile-mode .subtitle { font-size: 1.6rem; margin-bottom: 25px; }
+        body.mobile-mode label { font-size: 1.3rem; }
+        body.mobile-mode input[type="date"] {
+            font-size: 24px;
+            width: 100%;
+        }
+        body.mobile-mode textarea {
+            font-size: 22px;
+            line-height: 40px;
+            height: 320px;
+        }
+        body.mobile-mode .btn-history {
+            width: 100%;
+            margin-top: 30px;
+        }
+        body.mobile-mode .btn-analyze {
+            position: static;
+            margin-top: 25px;
+            width: 100%;
+        }
+        body.mobile-mode .bookmark {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -237,11 +319,6 @@
     <audio id="bgm" loop>
         <source src="/static/bgm.mp3" type="audio/mpeg">
     </audio>
-
-    <div class="user-panel">
-        <span>Keeper: {{ user }}</span>
-        <a href="/logout">[Logout]</a>
-    </div>
 
     <div class="book-wrapper" id="book">
         <div class="cover" onclick="openBook()">
@@ -251,6 +328,7 @@
         </div>
 
         <form action="/analyze" method="post" class="inner-pages">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
             <div class="bookmark"></div>
             
             <div class="page page-left">
@@ -272,6 +350,12 @@
         </form>
     </div>
 
+    <div class="user-panel" id="userPanel">
+        <span>Keeper: {{ user }}</span>
+        <a href="/logout">[Logout]</a>
+    </div>
+</div>
+
     <script>
         const book = document.getElementById('book');
         const bgm = document.getElementById('bgm');
@@ -280,16 +364,48 @@
 
         // 음악 이어듣기
         const savedTime = sessionStorage.getItem('bgmTime');
-        if (savedTime) {
-            bgm.currentTime = savedTime;
+
+        const startPlayback = () => {
+            if (savedTime) {
+                try {
+                    const time = Math.max(0, parseFloat(savedTime));
+                    if (!isNaN(time)) {
+                        bgm.currentTime = Math.min(time, Math.max(0, (bgm.duration || time) - 0.5));
+                    }
+                } catch (err) {
+                    console.warn('Failed to restore bgm time', err);
+                }
+            }
+            bgm.play().catch(e => console.log("자동 재생 차단됨"));
+        };
+
+        function applyMobileLayout() {
+            const isMobile = window.innerWidth <= 920;
+            document.body.classList.toggle('mobile-mode', isMobile);
+            if (isMobile) {
+                book.classList.add('is-open');
+                return true;
+            }
+            return false;
         }
 
-        // 책 자동 열림 확인
-        if (sessionStorage.getItem('bookOpened') === 'true') {
-            book.classList.add('is-open');
-            book.style.transition = 'none'; 
-            setTimeout(() => book.style.transition = '', 100); 
-            bgm.play().catch(e => console.log("자동 재생 차단됨"));
+        const wasMobile = applyMobileLayout();
+
+        const beginAudio = () => {
+            if (!wasMobile && sessionStorage.getItem('bookOpened') === 'true') {
+                book.classList.add('is-open');
+                book.style.transition = 'none'; 
+                setTimeout(() => book.style.transition = '', 100); 
+                startPlayback();
+            } else if (wasMobile) {
+                startPlayback();
+            }
+        };
+
+        if (bgm.readyState >= 2) {
+            beginAudio();
+        } else {
+            bgm.addEventListener('loadedmetadata', beginAudio, { once: true });
         }
 
         // 날짜 자동 입력
@@ -301,6 +417,10 @@
             sessionStorage.setItem('bookOpened', 'true');
             bgm.play().catch(error => console.log("오디오 재생 실패:", error));
         }
+
+        window.addEventListener('resize', () => {
+            applyMobileLayout();
+        });
 
         // 떠날 때 시간 저장
         window.addEventListener('beforeunload', () => {

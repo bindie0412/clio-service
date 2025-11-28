@@ -3,145 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <title>Analysis Result</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Caveat:wght@700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     <style>
         body { 
-            background-color: {{ color }};
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center; 
-            padding: 50px 20px;
-            transition: background-color 1s ease;
+            font-family: 'Nanum Pen Script', cursive;
+            background-color: #1a120b;
+            background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+            color: #e6dec8;
             min-height: 100vh;
+            margin: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0;
+            padding: 40px;
         }
-        .container {
-            background-color: rgba(255, 255, 255, 0.95);
+        .backdrop {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top, rgba(255,255,255,0.15), transparent 55%), rgba(0,0,0,0.35);
+            pointer-events: none;
+        }
+        .result-wrapper {
+            position: relative;
+            background-color: rgba(230, 222, 200, 0.95);
             padding: 50px;
             border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            max-width: 600px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            max-width: 700px;
             width: 100%;
+            text-align: center;
+            color: #1a120b;
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
-        .color-circle {
-            width: 150px;
-            height: 150px;
+        .color-indicator {
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             background-color: {{ color }};
             margin: 0 auto 30px;
-            border: 6px solid white;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border: 6px solid rgba(255,255,255,0.7);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
         h1 {
-            color: #222;
-            margin: 0 0 20px 0;
-            font-size: 1.5em;
+            font-family: 'Cinzel', serif;
+            color: #3e2723;
+            font-size: 2rem;
+            margin-bottom: 10px;
         }
         .emotion-title { 
-            font-size: 3em;
+            font-size: 2.8rem;
             color: {{ color }};
             font-weight: bold;
-            margin: 20px 0 30px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 8px rgba(0,0,0,0.2);
         }
         .info-section {
-            background: #f8f8f8;
+            background: rgba(255,255,255,0.9);
             padding: 25px;
-            border-radius: 15px;
-            margin: 30px 0;
+            border-radius: 20px;
+            margin: 0 auto 30px;
             text-align: left;
+            max-width: 520px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
         }
         .info-section p {
-            margin: 12px 0;
-            font-size: 1.1em;
-            color: #333;
-            border-bottom: 1px solid #eee; /* 줄긋기 추가 */
+            margin: 10px 0;
+            font-size: 1.1rem;
+            color: #3e2723;
+            border-bottom: 1px solid rgba(62,39,35,0.2);
             padding-bottom: 8px;
         }
         .info-section p:last-child {
             border-bottom: none;
         }
         .info-section strong {
-            color: {{ color }};
+            color: #5d4037;
             font-weight: 600;
             display: inline-block;
-            width: 180px; /* 라벨 간격 맞추기 */
+            width: 150px;
         }
         .diary-label {
             font-weight: bold;
-            color: #222;
-            margin: 30px 0 15px 0;
+            color: #3e2723;
+            margin-bottom: 15px;
             text-align: left;
-            font-size: 1.1em;
+            font-size: 1.2rem;
         }
         .diary-box {
-            background: #f0f0f0;
+            background: rgba(255, 255, 255, 0.9);
             padding: 20px;
-            border-left: 5px solid {{ color }};
-            border-radius: 8px;
+            border-left: 6px solid {{ color }};
+            border-radius: 10px;
             text-align: left;
-            color: #444;
+            color: #2e1a0f;
             font-style: italic;
             line-height: 1.6;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             word-wrap: break-word;
+            max-height: 220px;
+            overflow-y: auto;
         }
         .button-group {
-            margin-top: 30px;
+            margin-top: 10px;
         }
-        button {
-            padding: 14px 40px;
-            font-size: 1em;
+        .button-group button {
+            padding: 14px 42px;
+            font-size: 1rem;
             background-color: {{ color }};
             color: white;
             border: none;
-            border-radius: 25px;
+            border-radius: 30px;
             cursor: pointer;
             font-weight: 600;
-            transition: 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
         }
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-            filter: brightness(1.1); /* 마우스 올리면 살짝 밝게 */
+        .button-group button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 9px 25px rgba(0,0,0,0.3);
         }
-        a {
-            text-decoration: none;
+        .metadata-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        code {
+            background: #eee;
+            padding: 5px 12px;
+            border-radius: 5px;
+            color: #333;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="color-circle"></div>
-        
+    <div class="backdrop"></div>
+    <audio id="bgm" loop>
+        <source src="/static/bgm.mp3" type="audio/mpeg">
+    </audio>
+    <div class="result-wrapper">
+        <div class="color-indicator"></div>
         <h1>✨ AI Emotion Analysis Result</h1>
         <div class="emotion-title">{{ emotion }}</div>
-        
         <div class="info-section">
-            <p>
-                <strong>📅 Date:</strong> {{ date }}
-            </p>
-            <p>
-                <strong>Recommended Color:</strong> {{ color_name }}
-            </p>
-            <p>
-                <strong>Tone:</strong> {{ tone }}
-            </p>
-            <p>
-                <strong>Color Code:</strong> <code style="background: #eee; padding: 5px 10px; border-radius: 5px; color: #333;">{{ color }}</code>
-            </p>
+            <p><strong>📅 Date:</strong> {{ date }}</p>
+            <p><strong>Recommended Color:</strong> {{ color_name }}</p>
+            <p><strong>Tone:</strong> {{ tone }}</p>
+            <p class="metadata-row"><strong>Color Code:</strong> <code>{{ color }}</code></p>
         </div>
-        
-        <p class="diary-label">📝 Your Diary Entry:</p>
+        <div class="diary-label">📝 Your Diary Entry:</div>
         <div class="diary-box">{{ text }}</div>
-        
         <div class="button-group">
-            <a href="/">
-                <button>✏️ Write Another Diary</button>
+            <a href="/write">
+                <button>✏️ Return to Desk</button>
             </a>
         </div>
     </div>
+    <script>
+        const bgm = document.getElementById('bgm');
+        bgm.volume = 0.5;
+        const savedTime = sessionStorage.getItem('bgmTime');
+        if (savedTime) {
+            bgm.currentTime = savedTime;
+        }
+        bgm.play().catch(e => console.log("자동 재생 차단됨"));
+        window.addEventListener('beforeunload', () => {
+            sessionStorage.setItem('bgmTime', bgm.currentTime);
+        });
+    </script>
 </body>
 </html>

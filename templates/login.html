@@ -43,6 +43,7 @@
         <div class="card">
             <h2>Unlock Diary</h2>
             <form action="/login" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                 <input type="text" name="username" placeholder="Your Name" required>
                 <input type="password" name="password" placeholder="Secret Key" required>
                 <button type="submit">Open</button>
@@ -52,6 +53,7 @@
         <div class="card" style="border-color: #bcaaa4;">
             <h2 style="color: #bcaaa4;">New Keeper</h2>
             <form action="/register" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
                 <input type="text" name="username" placeholder="Choose Name" required>
                 <input type="password" name="password" placeholder="Create Key" required>
                 <button type="submit" style="color: #bcaaa4; border-color: #bcaaa4;">Register</button>
