@@ -199,7 +199,7 @@
 </head>
 <body>
     
-    <audio id="bgm" loop>
+    <audio id="bgm" loop preload="auto">
         <source src="/static/bgm.mp3" type="audio/mpeg">
     </audio>
 
@@ -297,9 +297,17 @@
             bgm.addEventListener('loadedmetadata', startPlayback, { once: true });
         }
 
-        window.addEventListener('beforeunload', () => {
-            sessionStorage.setItem('bgmTime', bgm.currentTime);
+        const persistTime = () => {
+            try {
+                sessionStorage.setItem('bgmTime', bgm.currentTime);
+            } catch (err) {}
+        };
+        const syncInterval = setInterval(persistTime, 1500);
+        window.addEventListener('visibilitychange', () => {
+            if (document.hidden) persistTime();
         });
+        window.addEventListener('pagehide', persistTime);
+        window.addEventListener('beforeunload', persistTime);
     </script>
 
 </body>

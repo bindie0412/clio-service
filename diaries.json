@@ -130,6 +130,52 @@
                 }
             ],
             "id": "7bb8a930257128d1"
+        },
+        {
+            "date": "November 28, 2025",
+            "text": "It feels like the world outside has adopted the same gray filter that's been hanging over my mood all week. There's no specific tragedy to point to, just a persistent, low-level hum of melancholy that makes everything feel a little muted and insignificant. I find myself drifting through tasks without enthusiasm, and even things I usually look forward to—like reading a good book or listening to music—fail to spark any real joy. It's the kind of quiet sadness that doesn't demand attention, but simply absorbs the color out of the day. Maybe I'm just tired, or perhaps this is just one of those emotional troughs everyone cycles through. I keep reminding myself that feelings, like the weather, are temporary, yet the prospect of waiting for the sun to break through feels exhausting right now.\r\n\r\nI tried to combat the slump earlier by going for a walk, hoping the fresh air and change of scenery would help, but it just ended up confirming my internal state. The streets seemed ordinary, the people rushed and preoccupied, and I felt utterly detached, like a silent observer in my own life. I spent the evening staring at the ceiling, thinking about all the things I should be doing versus what I actually felt capable of, which was nothing much at all. It’s frustrating to have a mind full of ambitions but a spirit too heavy to execute them. I suppose all I can do is acknowledge this feeling, not try to force a change, and hope that tomorrow brings a slightly lighter step. I’ll write down one small positive thing before I sleep, even if it's just the fact that I remembered to eat dinner.",
+            "emotion": "Happiness",
+            "color": "#e8f090",
+            "color_name": "Bright Color",
+            "tone": "Bright and Pastel",
+            "people": [
+                {
+                    "name": "I",
+                    "emotion": "Anger",
+                    "color": "#64331f",
+                    "count": 14
+                },
+                {
+                    "name": "The",
+                    "emotion": "Anger",
+                    "color": "#86323a",
+                    "count": 1
+                }
+            ],
+            "id": "4329a8be17af7d84"
+        },
+        {
+            "date": "November 14, 2025",
+            "text": "It feels like the world outside has adopted the same gray filter that's been hanging over my mood all week. There's no specific tragedy to point to, just a persistent, low-level hum of melancholy that makes everything feel a little muted and insignificant. I find myself drifting through tasks without enthusiasm, and even things I usually look forward to—like reading a good book or listening to music—fail to spark any real joy. It's the kind of quiet sadness that doesn't demand attention, but simply absorbs the color out of the day. Maybe I'm just tired, or perhaps this is just one of those emotional troughs everyone cycles through. I keep reminding myself that feelings, like the weather, are temporary, yet the prospect of waiting for the sun to break through feels exhausting right now.\r\n\r\nI tried to combat the slump earlier by going for a walk, hoping the fresh air and change of scenery would help, but it just ended up confirming my internal state. The streets seemed ordinary, the people rushed and preoccupied, and I felt utterly detached, like a silent observer in my own life. I spent the evening staring at the ceiling, thinking about all the things I should be doing versus what I actually felt capable of, which was nothing much at all. It’s frustrating to have a mind full of ambitions but a spirit too heavy to execute them. I suppose all I can do is acknowledge this feeling, not try to force a change, and hope that tomorrow brings a slightly lighter step. I’ll write down one small positive thing before I sleep, even if it's just the fact that I remembered to eat dinner.",
+            "emotion": "Happiness",
+            "color": "#f3db9a",
+            "color_name": "Bright Color",
+            "tone": "Bright and Pastel",
+            "people": [
+                {
+                    "name": "I",
+                    "emotion": "Anger",
+                    "color": "#75412b",
+                    "count": 14
+                },
+                {
+                    "name": "The",
+                    "emotion": "Anger",
+                    "color": "#7e394e",
+                    "count": 1
+                }
+            ],
+            "id": "acaa1d165645d48a"
         }
     ]
 }

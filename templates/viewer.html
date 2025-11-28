@@ -238,6 +238,9 @@
             margin-top: 5px;
             margin-bottom: 15px;
             padding-right: 10px;
+            gap: 16px;
+            display: flex;
+            flex-direction: column;
         }
         .related-scroller a {
             text-decoration: none;
@@ -247,8 +250,16 @@
         .related-card {
             background: rgba(255,255,255,0.96);
             border-radius: 15px;
-            padding: 16px 20px;
-            margin-bottom: 18px;
+            padding: 18px 22px;
+            border-left: 6px solid var(--theme-color);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .related-card + .related-card {
+            margin-top: 10px;
+        }
             border-left: 6px solid var(--theme-color);
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             display: flex;
@@ -353,7 +364,7 @@
 </head>
 <body>
     <div class="ambient-light"></div>
-    <audio id="bgm" loop>
+    <audio id="bgm" loop preload="auto">
         <source src="/static/bgm.mp3" type="audio/mpeg">
     </audio>
     <header class="viewer-header">
@@ -470,9 +481,17 @@
         window.addEventListener('resize', updateLayoutMode);
         updateLayoutMode();
 
-        window.addEventListener('beforeunload', () => {
-            sessionStorage.setItem('bgmTime', bgm.currentTime);
+        const persistTime = () => {
+            try {
+                sessionStorage.setItem('bgmTime', bgm.currentTime);
+            } catch (err) {}
+        };
+        const syncInterval = setInterval(persistTime, 1500);
+        window.addEventListener('visibilitychange', () => {
+            if (document.hidden) persistTime();
         });
+        window.addEventListener('pagehide', persistTime);
+        window.addEventListener('beforeunload', persistTime);
 
         const tabButtons = document.querySelectorAll('.tab-btn');
         const tabPanels = document.querySelectorAll('.tab-panel');
