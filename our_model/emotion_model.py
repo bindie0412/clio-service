@@ -5,7 +5,6 @@ English Emotion, Color & Person Analysis Model
 
 import pandas as pd
 import numpy as np
-import pickle
 import os
 import sys
 import re
@@ -20,9 +19,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
 
 class ImprovedEmotionAnalyzer:
-    def __init__(self, use_cache=True):
-        # Cache setting
-        self.use_cache = use_cache
+    def __init__(self):
         
         self.text_model = None
         self.text_vectorizer = None
@@ -116,9 +113,6 @@ class ImprovedEmotionAnalyzer:
     def _load_text_model(self):
         """Load text emotion analysis model"""
         try:
-            cache_dir = os.path.dirname(__file__)
-            cache_file = os.path.join(cache_dir, 'model_cache.pkl')
-            
             csv_path = os.path.join(os.path.dirname(__file__), 'emotion_sentimen_dataset.csv')
             
             if not os.path.exists(csv_path):
@@ -160,14 +154,6 @@ class ImprovedEmotionAnalyzer:
             self.text_model.fit(X_train_tfidf, y_train)
             print("Text model training complete.\n")
             
-            try:
-                cache_data = {'text_model': self.text_model, 'text_vectorizer': self.text_vectorizer}
-                with open(cache_file, 'wb') as f:
-                    pickle.dump(cache_data, f)
-                print("💾 Model saved to cache.")
-            except Exception as e:
-                print(f"⚠️ Failed to save cache: {e}")
-            
         except Exception as e:
             print(f"❌ Failed to load text model: {e}")
             self.text_model = None
@@ -176,9 +162,6 @@ class ImprovedEmotionAnalyzer:
     def _load_color_model(self):
         """Load color model"""
         try:
-            cache_dir = os.path.dirname(__file__)
-            cache_file = os.path.join(cache_dir, 'model_cache.pkl')
-            
             csv_path = os.path.join(os.path.dirname(__file__), 'your_file_name.csv')
             
             if not os.path.exists(csv_path):
@@ -196,21 +179,6 @@ class ImprovedEmotionAnalyzer:
             
             self.color_model = RandomForestClassifier(n_estimators=100, random_state=42)
             self.color_model.fit(X, y_encoded)
-            
-            try:
-                if os.path.exists(cache_file):
-                    with open(cache_file, 'rb') as f:
-                        cache_data = pickle.load(f)
-                else:
-                    cache_data = {}
-                
-                cache_data['color_model'] = self.color_model
-                cache_data['color_encoder'] = self.color_encoder
-                
-                with open(cache_file, 'wb') as f:
-                    pickle.dump(cache_data, f)
-            except Exception as e:
-                print(f"⚠️ Failed to save color model cache: {e}")
             
         except Exception as e:
             print(f"❌ Failed to load color model: {e}")
@@ -409,7 +377,7 @@ class ImprovedEmotionAnalyzer:
 
 
 # Global Instance
-improved_analyzer = ImprovedEmotionAnalyzer(use_cache=True)
+improved_analyzer = ImprovedEmotionAnalyzer()
 
 def analyze_emotion_and_color(diary_entry, show_visualization=False):
     return improved_analyzer.analyze_emotion_and_color(diary_entry, show_visualization)

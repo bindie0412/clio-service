@@ -237,6 +237,199 @@
             "tone": "Calm and Dark",
             "people": [],
             "id": "cbc113dc08ce6ca1"
+        },
+        {
+            "date": "November 29, 2025",
+            "text": "i have no friend to play video game...",
+            "emotion": "Happiness",
+            "color": "#f2df91",
+            "color_name": "Bright Color",
+            "tone": "Bright and Pastel",
+            "people": [],
+            "id": "4389a58f56832c74"
+        },
+        {
+            "date": "November 29, 2025",
+            "text": "i'm too tired\r\n",
+            "emotion": "Sadness",
+            "color": "#2a2833",
+            "color_name": "Grey",
+            "tone": "Calm and Dark",
+            "people": [],
+            "id": "3bbc3b8e21fcf81a"
+        },
+        {
+            "date": "November 29, 2025",
+            "text": "i have no friends to play game",
+            "emotion": "Sadness",
+            "color": "#353943",
+            "color_name": "Grey",
+            "tone": "Calm and Dark",
+            "people": [],
+            "id": "98acb8fc637bb736"
+        },
+        {
+            "date": "November 29, 2025",
+            "text": "Today feels heavy, a kind of deep, aching sadness that settles in my bones. It’s not just one thing, but a culmination of small disappointments and the quiet realization that some things will never be the way they were. The rain outside mirrors the gray feeling in my chest; everything seems muted, colorless, and distant. I tried to shake it off, to focus on something positive, but the effort felt exhausting, and eventually, I just let the gloom take over. I wish I could fast-forward through this feeling, but I know I just have to sit with it until the light returns, however long that takes.",
+            "emotion": "Sadness",
+            "color": "#282d33",
+            "color_name": "Grey",
+            "tone": "Calm and Dark",
+            "people": [
+                {
+                    "name": "The",
+                    "emotion": "Sadness",
+                    "color": "#2f2c37",
+                    "count": 1
+                },
+                {
+                    "name": "I",
+                    "emotion": "Happiness",
+                    "color": "#f0c996",
+                    "count": 6
+                }
+            ],
+            "id": "f04b2792e2105fe0"
+        },
+        {
+            "date": "November 29, 2025",
+            "text": "The morning started under a cloud of deep disappointment. I felt incredibly lonely, and a specific memory of a recent setback kept playing in my mind, making my chest ache. I even shed a few tears, convinced that nothing good would happen today. But later, as I was walking, a thought suddenly struck me: I have the power to change this moment. I decided to call an old friend I hadn't spoken to in months. Our conversation flowed so easily—full of laughter and shared memories—and it completely lifted my spirits. It was a simple connection, yet it reminded me that joy is often found in reaching out, and that even the darkest days can hold unexpected moments of beautiful light. I feel so much lighter now, ready for tomorrow.",
+            "emotion": "Happiness",
+            "color": "#fed098",
+            "color_name": "Bright Color",
+            "tone": "Bright and Pastel",
+            "people": [
+                {
+                    "name": "The",
+                    "emotion": "Sadness",
+                    "color": "#333b40",
+                    "count": 1
+                },
+                {
+                    "name": "I",
+                    "emotion": "Happiness",
+                    "color": "#fdd49c",
+                    "count": 7
+                }
+            ],
+            "id": "de9f7622cdf84090"
+        },
+        {
+            "date": "November 29, 2025",
+            "text": "Today was a dream come true! I finally received the acceptance letter for the art residency I've wanted for years. I was literally jumping around the apartment, screaming with pure, unadulterated joy. I felt like I was floating on air, completely invincible, and spent the entire afternoon texting everyone and planning the move. Later, as I settled down and looked out the window, I noticed something strange across the street: a light flickering rapidly in the top window of the old, abandoned house. It wasn't just blinking; it seemed frantic. I dismissed it at first, attributing it to the cold, but then I saw a shadow—tall, thin, and definitely not static—pass behind the glass. My heart instantly dropped from its peak of happiness into a pit of icy dread. The silence in my apartment suddenly felt deafening, and now I can't shake the chilling feeling that someone is watching.",
+            "emotion": "Fear",
+            "color": "#253328",
+            "color_name": "Grey",
+            "tone": "Calm and Dark",
+            "people": [
+                {
+                    "name": "I",
+                    "emotion": "Sadness",
+                    "color": "#242a33",
+                    "count": 10
+                },
+                {
+                    "name": "My",
+                    "emotion": "Fear",
+                    "color": "#131233",
+                    "count": 1
+                },
+                {
+                    "name": "The",
+                    "emotion": "Sadness",
+                    "color": "#393745",
+                    "count": 1
+                }
+            ],
+            "id": "fff2e5316776d8b2"
+        },
+        {
+            "date": "November 29, 2025",
+            "text": "“Where could it be?” Sophie asked herself. It had been more \r\nthan ten years since she had last visited the area where she had \r\ngrown up. The village had changed a lot over time. Uncertain, \r\nshe awkwardly looked around at her surroundings. She walked \r\nthe narrow streets of the village, unsure about which way to \r\ngo. Suddenly, Sophie saw a familiar sight. “Yes, this must be \r\nit,” she thought. In front of her was a wall with flowers painted \r\non it. Although the colors were now faded, the familiar shapes \r\non the wall were the same ones she had painted with her father \r\nas a child. Sophie nodded, smiled brightly, and walked toward \r\nthe gate. At last, she had finally found the house she had \r\ngrown up in.",
+            "emotion": "Happiness",
+            "color": "#f5d595",
+            "color_name": "Bright Color",
+            "tone": "Bright and Pastel",
+            "people": [
+                {
+                    "name": "Sophie",
+                    "emotion": "Anger",
+                    "color": "#933a52",
+                    "count": 3
+                },
+                {
+                    "name": "The",
+                    "emotion": "Sadness",
+                    "color": "#252d33",
+                    "count": 1
+                },
+                {
+                    "name": "She",
+                    "emotion": "Anger",
+                    "color": "#6e282a",
+                    "count": 1
+                },
+                {
+                    "name": "In",
+                    "emotion": "Sadness",
+                    "color": "#2e2d39",
+                    "count": 1
+                }
+            ],
+            "id": "9ef9105eff07334d"
+        },
+        {
+            "date": "November 29, 2025",
+            "text": "It was Valentine’s Day on Friday and Peter was certain that \r\nhis wife, Amy, was going to love his surprise. Peter had spent \r\na long time searching online for an event that would be a new \r\nway to spend time with Amy. He had finally found the perfect \r\nthing for her. She often told him that she liked to go to places \r\nshe had never visited before, and he was absolutely sure that \r\nshe would love going to the new, five-star restaurant downtown.\r\nHe smiled as he called the restaurant and asked for a reservation \r\nfor Friday. Unfortunately, his smile quickly disappeared when \r\nhe was told that the restaurant was fully reserved. “That’s too\r\nbad,” he said quietly. “I thought that I had found the right \r\nplace.”",
+            "emotion": "Happiness",
+            "color": "#f8d89c",
+            "color_name": "Bright Color",
+            "tone": "Bright and Pastel",
+            "people": [
+                {
+                    "name": "Valentine",
+                    "emotion": "Happiness",
+                    "color": "#fcf497",
+                    "count": 1
+                },
+                {
+                    "name": "Day",
+                    "emotion": "Happiness",
+                    "color": "#fceea3",
+                    "count": 1
+                },
+                {
+                    "name": "Friday",
+                    "emotion": "Happiness",
+                    "color": "#efe395",
+                    "count": 2
+                },
+                {
+                    "name": "Peter",
+                    "emotion": "Happiness",
+                    "color": "#fbe597",
+                    "count": 2
+                },
+                {
+                    "name": "Amy",
+                    "emotion": "Happiness",
+                    "color": "#f5d794",
+                    "count": 2
+                },
+                {
+                    "name": "She",
+                    "emotion": "Happiness",
+                    "color": "#f3c392",
+                    "count": 1
+                },
+                {
+                    "name": "I",
+                    "emotion": "Surprise",
+                    "color": "#d3a6ec",
+                    "count": 2
+                }
+            ],
+            "id": "3c7679a720dee469"
         }
     ]
 }

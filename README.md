@@ -16,7 +16,7 @@ clio-service/
 ├─ requirements.txt      # Python dependencies
 ├─ templates/            # HTML templates (login, writer, viewer, edit, etc.)
 ├─ static/bgm.mp3        # Background music
-├─ our_model/            # Emotion/color analyzer & data caches
+├─ our_model/            # Emotion/color analyzer & datasets
 ├─ users.json            # Plain JSON user credentials
 └─ diaries.json          # Per-user diary entries
 ```
