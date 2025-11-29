@@ -15,6 +15,8 @@
             padding: 40px 20px; 
             margin: 0;
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
 
         header { 
@@ -102,8 +104,8 @@
         /* ================= [디자인] 3. 책꽂이 & 일기 카드 ================= */
         .bookshelf { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-            gap: 40px; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 55px; 
             padding: 20px; 
         }
 
@@ -114,22 +116,43 @@
 
         .diary-card {
             background: #f5f1e6; 
-            padding: 25px; 
+            padding: 20px; 
             position: relative;
             border-radius: 5px 15px 15px 5px; 
             box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
             border-left: 18px solid #8d6e63; 
-            transition: transform 0.3s;
-            height: 420px; 
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 360px; 
             display: flex; 
             flex-direction: column;
             overflow: hidden;
+            z-index: 1;
         }
 
         .diary-card:hover { 
-            transform: translateY(-10px) scale(1.02); 
-            box-shadow: 15px 25px 40px rgba(0,0,0,0.6); 
+            transform: translateY(-6px) scale(1.05); 
+            box-shadow: 18px 30px 45px rgba(0,0,0,0.6); 
             z-index: 10; 
+        }
+
+        .diary-card.active-focus {
+            transform: translateY(-10px) scale(1.08);
+            box-shadow: 22px 38px 55px rgba(0,0,0,0.75);
+            z-index: 60;
+        }
+
+        .focus-overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            z-index: 20;
+        }
+
+        body.focus-reading .focus-overlay {
+            opacity: 1;
         }
 
         /* 날짜 */
@@ -164,13 +187,13 @@
         /* 일기 본문 */
         .text {
             font-family: 'Caveat', 'Nanum Pen Script', cursive; 
-            font-size: 26px; 
+            font-size: 22px; 
             font-weight: bold; 
             color: #1a237e; 
             line-height: 1.6; 
             overflow-y: auto; 
             flex-grow: 1; 
-            padding-right: 10px;
+            padding-right: 6px;
             scrollbar-width: thin; 
             scrollbar-color: #a1887f transparent;
         }
@@ -212,6 +235,7 @@
     </style>
 </head>
 <body>
+    <div class="focus-overlay"></div>
     
     <audio id="bgm" loop preload="auto">
         <source src="/static/bgm.mp3" type="audio/mpeg">
@@ -322,6 +346,27 @@
         });
         window.addEventListener('pagehide', persistTime);
         window.addEventListener('beforeunload', persistTime);
+
+        const diaryCards = document.querySelectorAll('.diary-card');
+        const activateFocus = (card) => {
+            if (!card) return;
+            card.classList.add('active-focus');
+            document.body.classList.add('focus-reading');
+        };
+        const deactivateFocus = (card) => {
+            if (card) card.classList.remove('active-focus');
+            if (!document.querySelector('.diary-card.active-focus')) {
+                document.body.classList.remove('focus-reading');
+            }
+        };
+
+        diaryCards.forEach(card => {
+            card.addEventListener('mouseenter', () => activateFocus(card));
+            card.addEventListener('mouseleave', () => deactivateFocus(card));
+            card.addEventListener('touchstart', () => activateFocus(card), { passive: true });
+            card.addEventListener('touchend', () => setTimeout(() => deactivateFocus(card), 250), { passive: true });
+            card.addEventListener('touchcancel', () => deactivateFocus(card), { passive: true });
+        });
     </script>
     {% include 'page_turn_sound.html' %}
 

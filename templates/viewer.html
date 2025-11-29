@@ -185,25 +185,30 @@
             overflow: hidden;
             margin-bottom: 20px;
             align-self: center;
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
         .tab-btn {
             background: transparent;
             border: none;
-            padding: 8px 24px;
+            padding: 10px 28px;
             font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
-            color: rgba(0,0,0,0.5);
+            font-size: 0.95rem;
+            color: #4a2c1a;
             cursor: pointer;
             transition: background 0.3s ease, color 0.3s ease;
+            min-width: 110px;
         }
         .tab-btn.active {
             background: var(--theme-color);
-            color: var(--page-text);
+            color: #fff;
         }
         .tab-panel {
             flex: 1;
             display: none;
             flex-direction: column;
+            overflow-y: auto;
+            padding-right: 4px;
         }
         .tab-panel.active {
             display: flex;
@@ -488,6 +493,14 @@
                         <div class="info-card">
                             <strong>Color Code</strong>
                             <span>{{ selected.color }}</span>
+                        </div>
+                        <div class="info-card">
+                            <strong>Emotion Blocks</strong>
+                            <span>{{ emotion_flow|length if emotion_flow else 1 }}</span>
+                        </div>
+                        <div class="info-card">
+                            <strong>Characters</strong>
+                            <span>{{ selected.people|length if selected.people else 0 }}</span>
                         </div>
                     </div>
                     {% if emotion_flow %}

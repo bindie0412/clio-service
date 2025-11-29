@@ -837,6 +837,41 @@
                 }
             ],
             "id": "0e63c93f9671e3c1"
+        },
+        {
+            "date": "November 29, 2025",
+            "text": "\"Where could it be?\" Sophie asked herself. It had been more than ten years since she had last visited the area where she had grown up. The Village had changed a lot over time. Uncertain, she awkwardly looked around at her surroundings. She walked the narrow streets of the village, unsure about which way to go. Suddenly, Sophie saw a familiar sight. \"Yes, this must be it,\" she thought. In front of her was a wall with flowers painted on it. Although the colors were now faded, the familiar shapes on the wall were the same ones she had painted with her father as a child. Sophie nodded, smiled brightly, and walked toward the gate. At last, she had finally found the house she had grown up in.",
+            "emotion": "Happiness",
+            "color": "#f6fe98",
+            "color_name": "Bright Color",
+            "tone": "Bright and Pastel",
+            "people": [
+                {
+                    "name": "Sophie",
+                    "emotion": "Anger",
+                    "color": "#8f3752",
+                    "count": 3
+                },
+                {
+                    "name": "The",
+                    "emotion": "Sadness",
+                    "color": "#2b2833",
+                    "count": 1
+                },
+                {
+                    "name": "She",
+                    "emotion": "Anger",
+                    "color": "#6b2a29",
+                    "count": 1
+                },
+                {
+                    "name": "In",
+                    "emotion": "Sadness",
+                    "color": "#282c33",
+                    "count": 1
+                }
+            ],
+            "id": "61a53069857fc0a5"
         }
     ]
 }

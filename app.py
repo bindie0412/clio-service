@@ -172,6 +172,8 @@ def analyze():
     # 폼 데이터 받기
     raw_date = request.form['date']
     diary_text = request.form['diary']
+    if not diary_text.strip():
+        return "<script>alert('일기 내용을 입력해주세요.'); history.back();</script>"
     english_date = format_english_date(raw_date)
     
     # --- [AI 모델 사용] 님 코드 그대로 유지 ---
