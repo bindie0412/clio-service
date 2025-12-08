@@ -3,19 +3,19 @@ import json
 import os
 from datetime import datetime
 import secrets
-# 님 기존 코드의 AI 모델 불러오기
-from our_model.emotion_model import improved_analyzer 
+# 모델과 위험 감지 함수 불러오기
+from our_model.emotion_model import improved_analyzer, check_mind_care_needed
 from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
-app.secret_key = 'acdt_secret_key_1234'  # 세션 암호화 키 (필수)
+app.secret_key = 'acdt_secret_key_1234'  # 세션 암호화 키
 
 # --- 경로 설정 ---
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DIARY_FILE = os.path.join(BASE_DIR, 'diaries.json')
-USER_FILE = os.path.join(BASE_DIR, 'users.json') # 사용자 정보 저장 파일
+USER_FILE = os.path.join(BASE_DIR, 'users.json')
 
-# --- [Helper] 데이터 로드/저장 함수 (통합됨) ---
+# --- [Helper] 데이터 로드/저장 함수 ---
 def load_data(filename, default_type=dict):
     if not os.path.exists(filename):
         return default_type()
@@ -99,15 +99,14 @@ def find_entry_index(entries, entry_id):
 
 # ================= 라우팅 (Routes) =================
 
-# 1. [로그인 페이지] 앱 접속 시 첫 화면
+# 1. [로그인 페이지]
 @app.route('/', methods=['GET', 'POST'])
 def login_page():
-    # 이미 로그인 되어있으면 바로 글쓰기 화면으로
     if 'user' in session:
         return redirect(url_for('write_diary'))
-    return render_template('login.html', csrf_token=get_csrf_token()) # 새로 만든 login.html
+    return render_template('login.html', csrf_token=get_csrf_token())
 
-# 2. [기능] 로그인 처리
+# 2. [기능] 로그인
 @app.route('/login', methods=['POST'])
 def login():
     validate_csrf()
@@ -119,9 +118,9 @@ def login():
         session['user'] = username
         return redirect(url_for('write_diary'))
     else:
-        return "<script>alert('아이디 또는 비밀번호가 틀렸습니다.'); location.href='/';</script>"
+        return "<script>alert('Incorrect username or password.'); location.href='/';</script>"
 
-# 3. [기능] 회원가입 처리
+# 3. [기능] 회원가입
 @app.route('/register', methods=['POST'])
 def register():
     validate_csrf()
@@ -130,19 +129,17 @@ def register():
     password = request.form.get('password')
     
     if username in users:
-        return "<script>alert('이미 존재하는 이름입니다.'); location.href='/';</script>"
+        return "<script>alert('Username already exists.'); location.href='/';</script>"
     
-    # 사용자 저장
     users[username] = generate_password_hash(password)
     save_data(USER_FILE, users)
     
-    # 다이어리 데이터에도 빈 방(List) 만들기
     all_diaries = load_data(DIARY_FILE, dict)
     if username not in all_diaries:
         all_diaries[username] = []
     save_data(DIARY_FILE, all_diaries)
     
-    return "<script>alert('등록 완료! 로그인해주세요.'); location.href='/';</script>"
+    return "<script>alert('Registration complete! Please log in.'); location.href='/';</script>"
 
 # 4. [기능] 로그아웃
 @app.route('/logout')
@@ -150,16 +147,15 @@ def logout():
     session.pop('user', None)
     return redirect(url_for('login_page'))
 
-# 5. [메인] 일기 작성 페이지 (로그인 한 사람만 접근 가능)
+# 5. [메인] 일기 작성 페이지
 @app.route('/write')
 def write_diary():
     if 'user' not in session:
         return redirect(url_for('login_page'))
     
-    # index.html에 사용자 이름도 같이 보내줌 (헤더 표시용)
     return render_template('index.html', user=session['user'], csrf_token=get_csrf_token())
 
-# 6. [기능] 분석 및 저장 (핵심 로직 통합)
+# 6. [핵심 기능] 분석 및 저장 (수정됨: 선 저장 -> 후 분석)
 @app.route('/analyze', methods=['POST'])
 def analyze():
     if 'user' not in session:
@@ -172,14 +168,16 @@ def analyze():
     # 폼 데이터 받기
     raw_date = request.form['date']
     diary_text = request.form['diary']
+    
     if not diary_text.strip():
-        return "<script>alert('일기 내용을 입력해주세요.'); history.back();</script>"
+        return "<script>alert('Please write something in your diary.'); history.back();</script>"
+
     english_date = format_english_date(raw_date)
     
-    # --- [AI 모델 사용] 님 코드 그대로 유지 ---
+    # 1. AI 분석 수행
     result = improved_analyzer.analyze_emotion_and_color(diary_text)
     
-    # 저장할 데이터 구조 생성
+    # 2. 저장할 데이터 구조 생성
     new_entry = {
         'date': english_date,
         'text': diary_text,
@@ -191,18 +189,39 @@ def analyze():
         'id': secrets.token_hex(8)
     }
     
-    # --- [저장 로직 변경] 사용자별 방에 저장 ---
+    # 3. [중요] 일기 데이터 저장 (위험 여부와 상관없이 무조건 저장)
     all_diaries = load_data(DIARY_FILE, dict)
     
-    # 혹시 사용자 방이 없으면 생성 (에러 방지)
     if current_user not in all_diaries:
         all_diaries[current_user] = []
         
     all_diaries[current_user].append(new_entry) # 리스트에 추가
-    save_data(DIARY_FILE, all_diaries) # 전체 저장
+    save_data(DIARY_FILE, all_diaries) # 파일 저장
     
     print(f"✅ Saved for {current_user}: {english_date}")
+
+    # 4. [수정됨] 위험 감지 로직 (최근 3개 일기 누적 분석)
+    # 4-1. 사용자의 모든 일기 가져오기
+    user_history = all_diaries[current_user]
     
+    # 4-2. 최근 3개(방금 저장한 것 포함)만 슬라이싱
+    # 만약 일기가 3개 미만이면 전체를 다 가져옵니다.
+    recent_entries = user_history[-3:] 
+    
+    # 4-3. 텍스트 합치기 (분석 정확도를 위해 공백으로 연결)
+    combined_text = " ".join([entry['text'] for entry in recent_entries])
+    
+    print(f"🔍 Analyzing combined text length: {len(combined_text)} characters")
+
+    # 4-4. 합쳐진 텍스트로 위험 감지 수행
+    if check_mind_care_needed(combined_text):
+        # 위험 감지 시: 저장된 데이터는 유지하되, 화면은 경고창(index.html)으로 이동
+        return render_template('index.html', 
+                               user=current_user, 
+                               csrf_token=get_csrf_token(),
+                               needs_care=True) # UI 변경 플래그
+
+    # 위험하지 않으면 정상적인 결과 페이지 출력
     return render_template('result.html', 
                            date=english_date,
                            text=diary_text,
@@ -214,7 +233,7 @@ def analyze():
                            emotion_flow=result.get('emotion_flow', []),
                            emotion_gradient=result.get('emotion_gradient'))
 
-# 7. [히스토리] 내 일기만 보기 + 필터링
+# 7. [히스토리]
 @app.route('/history')
 def history():
     if 'user' not in session:
@@ -222,11 +241,11 @@ def history():
         
     current_user = session['user']
     
-    # 1. 전체 데이터 불러오기
     all_data = load_data(DIARY_FILE, dict)
     
-    # 2. [중요] '내 일기'만 꺼내오기 (없으면 빈 리스트)
     my_diaries = all_data.get(current_user, [])
+    
+    # ID가 없는 구형 데이터에 ID 부여
     data_changed = False
     for entry in my_diaries:
         if 'id' not in entry:
@@ -234,31 +253,26 @@ def history():
             data_changed = True
     if data_changed:
         save_data(DIARY_FILE, all_data)
-    my_diaries.reverse() # 최신순 정렬
+        
+    my_diaries.reverse() # 최신순
     
-    # 3. 필터 조건 받기
     filter_emotion = request.args.get('emotion')
     filter_date = request.args.get('date')
     filter_person = request.args.get('person')
 
-    # 4. 내 일기에서 등장인물 목록 뽑기
     my_people_list = get_user_people(my_diaries)
 
     filtered_diaries = []
     
-    # 5. 필터링 로직 (님 코드 로직 유지)
     for diary in my_diaries:
-        # 감정 필터
         if filter_emotion and filter_emotion != "All" and diary['emotion'] != filter_emotion:
             continue
         
-        # 날짜 필터
         if filter_date:
             english_filter_date = format_english_date(filter_date)
             if diary['date'] != english_filter_date:
                 continue
         
-        # 인물 필터
         if filter_person and filter_person != "All":
             diary_people_names = [p['name'] for p in diary.get('people', [])]
             if filter_person not in diary_people_names:
@@ -268,11 +282,11 @@ def history():
 
     return render_template('history.html', 
                            diaries=filtered_diaries,
-                           all_people=my_people_list, # 내 친구 목록만 전달
+                           all_people=my_people_list,
                            current_emotion=filter_emotion,
                            current_date=filter_date,
                            current_person=filter_person,
-                           user=current_user) # 사용자 이름도 전달
+                           user=current_user)
 
 @app.route('/view/<entry_id>')
 def view_entry(entry_id):
@@ -282,6 +296,7 @@ def view_entry(entry_id):
     current_user = session['user']
     all_data = load_data(DIARY_FILE, dict)
     user_diaries = all_data.get(current_user, [])
+    
     data_changed = False
     for entry in user_diaries:
         if 'id' not in entry:
@@ -384,4 +399,4 @@ def edit_entry(entry_id):
                            user=current_user)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001) # 포트 충돌 방지 5001
+    app.run(debug=True, port=5001)
