@@ -9,7 +9,7 @@
             font-family: 'Nanum Pen Script', cursive;
             background-color: #1a120b;
             background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
-            color: #e6dec8;
+            color: #1c1c1c;
             min-height: 100vh;
             margin: 0;
             display: flex;
@@ -20,20 +20,20 @@
         .backdrop {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at top, rgba(255,255,255,0.15), transparent 55%), rgba(0,0,0,0.35);
+            background: transparent;
             pointer-events: none;
         }
         .result-wrapper {
             position: relative;
-            background-color: rgba(230, 222, 200, 0.95);
+            background-color: #f1e6ce;
             padding: 50px;
-            border-radius: 25px;
+            border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.6);
             max-width: 700px;
             width: 100%;
             text-align: center;
-            color: #1a120b;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #1c1c1c;
+            border: 2px solid #d4af37;
         }
         .color-indicator {
             width: 160px;
@@ -41,7 +41,7 @@
             border-radius: 50%;
             background-color: {{ color }};
             margin: 0 auto 30px;
-            border: 6px solid rgba(255,255,255,0.7);
+            border: 6px solid #fdf1d2;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
         h1 {
@@ -58,19 +58,19 @@
             text-shadow: 1px 1px 8px rgba(0,0,0,0.2);
         }
         .info-section {
-            background: rgba(255,255,255,0.9);
+            background: #f9f1dd;
             padding: 25px;
-            border-radius: 20px;
+            border-radius: 16px;
             margin: 0 auto 30px;
             text-align: left;
             max-width: 520px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
         }
         .info-section p {
             margin: 10px 0;
             font-size: 1.1rem;
             color: #3e2723;
-            border-bottom: 1px solid rgba(62,39,35,0.2);
+            border-bottom: 1px solid #c9ab8a;
             padding-bottom: 8px;
         }
         .info-section p:last-child {
@@ -98,15 +98,15 @@
             height: 28px;
             border-radius: 999px;
             overflow: hidden;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.15);
-            border: 1px solid rgba(0,0,0,0.08);
-            background: linear-gradient(90deg, rgba(255,255,255,0.4), rgba(255,255,255,0));
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
+            border: 1px solid #c9ab8a;
+            background: linear-gradient(90deg, #f6e4c0, #ddb88d);
         }
         .flow-segment {
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255,255,255,0.95);
+            color: #fffdf5;
             font-size: 0.9rem;
             font-weight: 600;
             text-shadow: 0 1px 3px rgba(0,0,0,0.35);
@@ -129,10 +129,10 @@
         .flow-chip {
             display: flex;
             align-items: center;
-            background: rgba(255,255,255,0.92);
+            background: #f8e9cc;
             border-radius: 999px;
             padding: 6px 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             font-size: 0.95rem;
             color: #3e2723;
         }
@@ -156,7 +156,7 @@
             font-size: 1.2rem;
         }
         .diary-box {
-            background: rgba(255, 255, 255, 0.9);
+            background: #f8ecd2;
             padding: 20px;
             border-left: 6px solid {{ color }};
             border-radius: 10px;
