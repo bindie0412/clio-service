@@ -1,10 +1,4 @@
-﻿*.pkl
-*.csv
-
-# Local model artifacts/caches that are too large for GitHub
-our_model/bert_eval_outputs/
-our_model/__pycache__/
-*.bin
-*.pt
-*.pth
-*.h5
+# Ignore only transient build artifacts; everything else should be tracked (Git or LFS)
+__pycache__/
+*.py[cod]
+.DS_Store
