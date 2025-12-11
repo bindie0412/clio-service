@@ -1630,6 +1630,167 @@
                 }
             ],
             "id": "6d52e0fbc85d1b1d"
+        },
+        {
+            "date": "December 11, 2025",
+            "text": "This morning began with a quiet sense of order. The desk was clean, the air felt steady, and I thought the day might unfold without interruption. By noon, however, the rhythm changed. The tasks piled up, each one pressing against the calm I had carried earlier. I noticed my focus slipping, though I tried not to dwell on it.\r\n\r\nLater in the afternoon, a small message arrived—unexpected, but not unwelcome. It shifted the atmosphere again, lightening the weight of the hours before. I did not linger on the feeling, yet it stayed in the background, like a faint hum. Evening brought silence back, though not the same silence as the morning. It was heavier, slower, and I found myself watching the clock more than usual.\r\n\r\nNow, as I write, the day feels both complete and unfinished. There is no clear conclusion, only a gradual fading of thoughts. I cannot say whether I am satisfied or restless. Perhaps both, perhaps neither. The page closes with that uncertainty.",
+            "emotion": "Sadness",
+            "color": "#292d34",
+            "color_name": "Grey",
+            "tone": "Calm and Dark",
+            "people": [
+                {
+                    "name": "The",
+                    "emotion": "Happiness",
+                    "color": "#f4f192",
+                    "count": 3
+                },
+                {
+                    "name": "I",
+                    "emotion": "Sadness",
+                    "color": "#2b2833",
+                    "count": 9
+                },
+                {
+                    "name": "Evening",
+                    "emotion": "Sadness",
+                    "color": "#454d56",
+                    "count": 1
+                }
+            ],
+            "id": "320beed74c8c7232"
+        },
+        {
+            "date": "December 11, 2025",
+            "text": "The morning began quietly, with the usual routine unfolding without much thought. The air felt ordinary, neither heavy nor light. By midday, the pace picked up. Tasks filled the hours, yet they carried a certain rhythm that kept things moving forward. It was not overwhelming, only steady.\r\n\r\nIn the afternoon, a small surprise appeared—a brief conversation, a note, a reminder of connection. It shifted the tone, adding a spark that lingered longer than expected. The work continued, but it seemed lighter, almost easier to carry.\r\n\r\nEvening arrived with a calm brightness. The silence was not heavy but gentle, like a pause rather than an end. As I write now, the day feels complete in a quiet way. There is no grand conclusion, only a soft sense that tomorrow might begin with the same brightness, perhaps even more.",
+            "emotion": "Sadness",
+            "color": "#282e33",
+            "color_name": "Grey",
+            "tone": "Calm and Dark",
+            "people": [
+                {
+                    "name": "The",
+                    "emotion": "Sadness",
+                    "color": "#282c33",
+                    "count": 4
+                },
+                {
+                    "name": "In",
+                    "emotion": "Surprise",
+                    "color": "#da83d0",
+                    "count": 1
+                },
+                {
+                    "name": "Evening",
+                    "emotion": "Sadness",
+                    "color": "#2a2b37",
+                    "count": 1
+                },
+                {
+                    "name": "I",
+                    "emotion": "Sadness",
+                    "color": "#282a33",
+                    "count": 1
+                }
+            ],
+            "id": "ee1f63d28d340184"
+        },
+        {
+            "date": "December 11, 2025",
+            "text": "The morning began quietly, with the usual routine unfolding without much thought. The air felt ordinary, neither heavy nor light. By midday, the pace picked up. Tasks filled the hours, yet they carried a certain rhythm that kept things moving forward. It was not overwhelming, only steady.\r\n\r\nIn the afternoon, a small surprise appeared—a brief conversation, a note, a reminder of connection. It shifted the tone, adding a spark that lingered longer than expected. The work continued, but it seemed lighter, almost easier to carry.\r\n\r\nEvening arrived with a calm brightness. The silence was not heavy but gentle, like a pause rather than an end. As I write now, the day feels complete in a quiet way. There is no grand conclusion, only a soft sense that tomorrow might begin with the same brightness, perhaps even more.",
+            "emotion": "Sadness",
+            "color": "#2b2833",
+            "color_name": "Grey",
+            "tone": "Calm and Dark",
+            "people": [
+                {
+                    "name": "The",
+                    "emotion": "Sadness",
+                    "color": "#2b353e",
+                    "count": 4
+                },
+                {
+                    "name": "In",
+                    "emotion": "Surprise",
+                    "color": "#e5fffe",
+                    "count": 1
+                },
+                {
+                    "name": "Evening",
+                    "emotion": "Sadness",
+                    "color": "#282c33",
+                    "count": 1
+                },
+                {
+                    "name": "I",
+                    "emotion": "Sadness",
+                    "color": "#2d2c37",
+                    "count": 1
+                }
+            ],
+            "id": "404a5f9cb178a61e"
+        },
+        {
+            "date": "December 11, 2025",
+            "text": "🌅 The morning began quietly, with the usual routine unfolding without much thought. The air felt ordinary, neither heavy nor light.\r\n\r\n⏳ By midday, the pace picked up. Tasks filled the hours, yet they carried a certain rhythm that kept things moving forward. It was not overwhelming, only steady.\r\n\r\n💬 In the afternoon, a small surprise appeared—a brief conversation, a note, a reminder of connection. It shifted the tone, adding a spark that lingered longer than expected. The work continued, but it seemed lighter, almost easier to carry.\r\n\r\n🌇 Evening arrived with a calm brightness. The silence was not heavy but gentle, like a pause rather than an end.\r\n\r\n✨ As I write now, the day feels complete in a quiet way. There is no grand conclusion, only a soft sense that tomorrow might begin with the same brightness, perhaps even more.",
+            "emotion": "Sadness",
+            "color": "#282a33",
+            "color_name": "Grey",
+            "tone": "Calm and Dark",
+            "people": [
+                {
+                    "name": "The",
+                    "emotion": "Sadness",
+                    "color": "#3c4d57",
+                    "count": 4
+                },
+                {
+                    "name": "In",
+                    "emotion": "Surprise",
+                    "color": "#a6a5e5",
+                    "count": 1
+                },
+                {
+                    "name": "Evening",
+                    "emotion": "Sadness",
+                    "color": "#373d45",
+                    "count": 1
+                },
+                {
+                    "name": "I",
+                    "emotion": "Happiness",
+                    "color": "#f2c891",
+                    "count": 1
+                }
+            ],
+            "id": "40387dddf4c7b587"
+        },
+        {
+            "date": "December 11, 2025",
+            "text": "jihwan had girl friend. So it was interesting. but he broked up. so it was interesting. so he killed himself. so it was interesting,",
+            "emotion": "Surprise",
+            "color": "#c9f8fa",
+            "color_name": "Bright Color",
+            "tone": "Bright and Pastel",
+            "people": [
+                {
+                    "name": "So",
+                    "emotion": "Happiness",
+                    "color": "#fad096",
+                    "count": 1
+                }
+            ],
+            "id": "08cc005c7a4ffc2f"
+        },
+        {
+            "date": "December 11, 2025",
+            "text": "i want to kill myself",
+            "emotion": "Anger",
+            "color": "#762526",
+            "color_name": "Neutral Tone",
+            "tone": "Calm and Dark",
+            "people": [],
+            "id": "2114adb23156de91"
         }
     ]
 }
