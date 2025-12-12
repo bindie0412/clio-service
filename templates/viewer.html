@@ -482,6 +482,20 @@
                     <button class="tab-btn" data-target="tab-list">List</button>
                 </div>
                 <div class="tab-panel active" id="tab-info">
+                    {% if emotion_flow %}
+                    <div class="flow-section">
+                        <div class="flow-title">Emotion Flow</div>
+                        <div class="flow-bar" style="background-image: {{ emotion_gradient or 'linear-gradient(90deg, #FFD700, #4682B4)' }};"></div>
+                        <div class="flow-legend">
+                            {% for block in emotion_flow %}
+                            <div class="flow-chip">
+                                <span class="chip-index" style="background: {{ block.color }}">{{ loop.index }}</span>
+                                <span>{{ block.emotion }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
                     <div class="info-grid">
                         <div class="info-card">
                             <strong>Tone</strong>
@@ -504,20 +518,6 @@
                             <span>{{ selected.people|length if selected.people else 0 }}</span>
                         </div>
                     </div>
-                    {% if emotion_flow %}
-                    <div class="flow-section">
-                        <div class="flow-title">Emotion Flow</div>
-                        <div class="flow-bar" style="background-image: {{ emotion_gradient or 'linear-gradient(90deg, #FFD700, #4682B4)' }};"></div>
-                        <div class="flow-legend">
-                            {% for block in emotion_flow %}
-                            <div class="flow-chip">
-                                <span class="chip-index" style="background: {{ block.color }}">{{ loop.index }}</span>
-                                <span>{{ block.emotion }}</span>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    {% endif %}
                     <div class="info-card" style="margin-top: 10px;">
                         <strong>People</strong>
                         <div class="people-list" style="margin-top: 10px;">

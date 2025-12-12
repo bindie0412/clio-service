@@ -1791,6 +1791,23 @@
             "tone": "Calm and Dark",
             "people": [],
             "id": "2114adb23156de91"
+        },
+        {
+            "date": "December 12, 2025",
+            "text": "jihwan had girl friend. So it was interesting. but he broked up. so it was interesting. so he killed himself. so it was interesting,",
+            "emotion": "Surprise",
+            "color": "#f5c0ea",
+            "color_name": "Bright Color",
+            "tone": "Bright and Pastel",
+            "people": [
+                {
+                    "name": "So",
+                    "emotion": "Happiness",
+                    "color": "#f2c391",
+                    "count": 1
+                }
+            ],
+            "id": "f9551e8f4ad07a1a"
         }
     ]
 }
