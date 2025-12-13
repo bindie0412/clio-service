@@ -1808,6 +1808,106 @@
                 }
             ],
             "id": "f9551e8f4ad07a1a"
+        },
+        {
+            "date": "December 13, 2025",
+            "text": "i want to die\r\n",
+            "emotion": "Anger",
+            "color": "#673a24",
+            "color_name": "Neutral Tone",
+            "tone": "Calm and Dark",
+            "people": [],
+            "id": "f0fbd72f09b1c197"
+        },
+        {
+            "date": "December 13, 2025",
+            "text": "im happy",
+            "emotion": "Happiness",
+            "color": "#fafe98",
+            "color_name": "Bright Color",
+            "tone": "Bright and Pastel",
+            "people": [],
+            "id": "e7377d7e5857ce5f"
+        },
+        {
+            "date": "December 13, 2025",
+            "text": "i'm happpy",
+            "emotion": "Sadness",
+            "color": "#292833",
+            "color_name": "Grey",
+            "tone": "Calm and Dark",
+            "people": [],
+            "id": "23d411a4668c320e"
+        },
+        {
+            "date": "December 13, 2025",
+            "text": "i'm happy",
+            "emotion": "Happiness",
+            "color": "#f2c79b",
+            "color_name": "Bright Color",
+            "tone": "Bright and Pastel",
+            "people": [],
+            "id": "5f39f3c4881e07b2"
+        },
+        {
+            "date": "December 13, 2025",
+            "text": "i'm happy",
+            "emotion": "Happiness",
+            "color": "#f8df99",
+            "color_name": "Bright Color",
+            "tone": "Bright and Pastel",
+            "people": [],
+            "id": "f3e05bb1f0a89d12"
+        },
+        {
+            "date": "December 13, 2025",
+            "text": "i want to die",
+            "emotion": "Anger",
+            "color": "#663126",
+            "color_name": "Neutral Tone",
+            "tone": "Calm and Dark",
+            "people": [],
+            "id": "7264f7d6036d89c8"
+        },
+        {
+            "date": "December 13, 2025",
+            "text": "i want to kill my self",
+            "emotion": "Anger",
+            "color": "#945a3f",
+            "color_name": "Neutral Tone",
+            "tone": "Calm and Dark",
+            "people": [],
+            "id": "17e32bcf993a94a3"
+        },
+        {
+            "date": "December 13, 2025",
+            "text": "i want to die",
+            "emotion": "Anger",
+            "color": "#8b5b45",
+            "color_name": "Neutral Tone",
+            "tone": "Calm and Dark",
+            "people": [],
+            "id": "7ce9df7554956c05"
+        },
+        {
+            "date": "December 13, 2025",
+            "text": "im happy\r\n",
+            "emotion": "Happiness",
+            "color": "#fcf198",
+            "color_name": "Bright Color",
+            "tone": "Bright and Pastel",
+            "people": [],
+            "id": "55e9f1a8a966bdf9"
+        },
+        {
+            "date": "December 13, 2025",
+            "text": "i want to die. die.die\r\n",
+            "emotion": "Anger",
+            "color": "#67272f",
+            "color_name": "Neutral Tone",
+            "tone": "Calm and Dark",
+            "people": [],
+            "id": "df416cc5c5c67d2a"
         }
     ]
 }

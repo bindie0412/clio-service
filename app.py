@@ -200,21 +200,9 @@ def analyze():
     
     print(f"✅ Saved for {current_user}: {english_date}")
 
-    # 4. [수정됨] 위험 감지 로직 (최근 3개 일기 누적 분석)
-    # 4-1. 사용자의 모든 일기 가져오기
-    user_history = all_diaries[current_user]
-    
-    # 4-2. 최근 3개(방금 저장한 것 포함)만 슬라이싱
-    # 만약 일기가 3개 미만이면 전체를 다 가져옵니다.
-    recent_entries = user_history[-3:] 
-    
-    # 4-3. 텍스트 합치기 (분석 정확도를 위해 공백으로 연결)
-    combined_text = " ".join([entry['text'] for entry in recent_entries])
-    
-    print(f"🔍 Analyzing combined text length: {len(combined_text)} characters")
-
-    # 4-4. 합쳐진 텍스트로 위험 감지 수행
-    needs_care = check_mind_care_needed(combined_text)
+    # 4. Mind-care 플래그는 방금 작성한 일기 1개만 검사
+    #    (최근 기록 누적 영향 없이 현재 감정만 반영)
+    needs_care = check_mind_care_needed(diary_text)
 
     # 위험하지 않으면 정상적인 결과 페이지 출력
     return render_template('result.html', 

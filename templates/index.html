@@ -2,11 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Antique Diary</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Caveat:wght@700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     <link rel="preload" href="{{ url_for('static', filename='bgm.mp3') }}" as="audio">
     
     <style>
+        :root {
+            --ui-scale: 1;
+            --font-scale: 1;
+            --book-closed-width-base: 480px;
+            --book-open-width-base: 1100px;
+            --book-height-base: 680px;
+            --page-padding-base: 50px;
+        }
         /* ================= [Design] 1. Background ================= */
         body { 
             font-family: 'Nanum Pen Script', cursive;
@@ -19,7 +28,7 @@
             align-items: center;
             overflow-x: hidden;
             perspective: 1500px; /* 3D Perspective */
-            padding: 20px;
+            padding: calc(20px * var(--ui-scale));
         }
 
         /* ================= [User Panel] ================= */
@@ -48,15 +57,16 @@
         /* ================= [Design] 2. Book Wrapper ================= */
         .book-wrapper {
             position: relative;
-            width: 480px; /* Closed width */
-            height: 680px; /* Height */
+            width: calc(var(--book-closed-width-base) * var(--ui-scale));
+            height: calc(var(--book-height-base) * var(--ui-scale));
+            max-width: 100%;
             transition: width 1s ease-in-out, transform 1s ease-in-out; 
             transform-style: preserve-3d;
         }
 
         /* Open width */
         .book-wrapper.is-open {
-            width: 1100px; 
+            width: calc(var(--book-open-width-base) * var(--ui-scale));
         }
 
         /* ================= [Design] 3. Cover ================= */
@@ -131,7 +141,7 @@
 
         .book-wrapper.is-open .inner-pages { opacity: 1; pointer-events: auto; transition-delay: 0.3s; }
 
-        .page { flex: 1; padding: 50px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        .page { flex: 1; padding: calc(var(--page-padding-base) * var(--ui-scale)); display: flex; flex-direction: column; justify-content: center; position: relative; }
         
         .page-left { 
             background: linear-gradient(to right, #e6dec8 95%, #d7ccc8 100%); 
@@ -143,21 +153,21 @@
             background: linear-gradient(to left, #e6dec8 95%, #d7ccc8 100%); 
         }
 
-        h2 { font-family: 'Cinzel', serif; font-size: 3.2rem; color: #3e2723; margin: 0 0 10px 0; text-shadow: 1px 1px 0 rgba(255,255,255,0.5); }
-        
+        h2 { font-family: 'Cinzel', serif; font-size: max(2rem, calc(3.2rem * var(--font-scale))); color: #3e2723; margin: 0 0 10px 0; text-shadow: 1px 1px 0 rgba(255,255,255,0.5); }
+
         .subtitle { 
             color: #5d4037; 
             font-family: 'Caveat', cursive; 
-            font-size: 2rem; 
-            margin-bottom: 50px; 
+            font-size: max(1.2rem, calc(2rem * var(--font-scale)));
+            margin-bottom: calc(40px * var(--ui-scale)); 
             font-weight: bold; 
         }
         
-        label { font-family: 'Cinzel', serif; color: #5d4037; font-size: 1.6rem; margin-bottom: 15px; font-weight: bold; }
+        label { font-family: 'Cinzel', serif; color: #5d4037; font-size: max(1rem, calc(1.5rem * var(--font-scale))); margin-bottom: 15px; font-weight: bold; }
         
         input[type="date"] { 
-            padding: 10px; 
-            font-size: 32px; 
+            padding: calc(10px * var(--ui-scale)); 
+            font-size: max(18px, calc(32px * var(--font-scale)));
             font-family: 'Caveat', cursive; 
             font-weight: bold; 
             border: none; 
@@ -165,36 +175,36 @@
             background: transparent; 
             color: #3e2723; 
             text-align: center; 
-            width: 85%; 
+            width: 100%; 
             outline: none; 
         }
 
         textarea { 
             width: 100%; 
-            height: 100%; 
+            min-height: max(260px, calc(540px * var(--ui-scale)));
             padding-left: 15px;
             padding-right: 15px;
             padding-top: 12px; 
             font-family: 'Caveat', 'Nanum Pen Script', cursive; 
-            font-size: 30px; 
+            font-size: max(20px, calc(30px * var(--font-scale))); 
             font-weight: 700; 
-            line-height: 60px; 
+            line-height: max(34px, calc(60px * var(--ui-scale))); 
             border: none; 
             resize: none; 
             outline: none; 
             background-color: transparent; 
             background-image: linear-gradient(transparent 97%, #bcaaa4 97%); 
-            background-size: 100% 60px; 
+            background-size: 100% max(34px, calc(60px * var(--ui-scale))); 
             color: #1a237e; 
         }
         
-        textarea::placeholder { color: #a1887f; font-size: 30px; font-weight: normal; opacity: 0.7; }
+        textarea::placeholder { color: #a1887f; font-size: max(18px, calc(26px * var(--font-scale))); font-weight: normal; opacity: 0.7; }
 
         .btn-analyze { 
-            position: absolute; bottom: 40px; right: 50px; 
-            padding: 15px 40px; 
+            position: absolute; bottom: max(20px, calc(40px * var(--ui-scale))); right: max(20px, calc(50px * var(--ui-scale))); 
+            padding: calc(12px * var(--ui-scale)) calc(35px * var(--ui-scale)); 
             font-family: 'Cinzel', serif; 
-            font-size: 18px;
+            font-size: max(16px, calc(18px * var(--font-scale)));
             font-weight: bold; 
             background-color: #3e2723; 
             color: #d4af37; 
@@ -207,14 +217,14 @@
         .btn-analyze:hover { transform: translateY(-3px); background-color: #4e342e; box-shadow: 0 8px 15px rgba(0,0,0,0.4); }
 
         .btn-history { 
-            margin-top: 50px; 
-            padding: 12px 35px; 
+            margin-top: max(25px, calc(45px * var(--ui-scale))); 
+            padding: calc(10px * var(--ui-scale)) calc(30px * var(--ui-scale)); 
             background: transparent; 
             color: #5d4037; 
             border: 2px solid #5d4037; 
             font-family: 'Cinzel', serif; 
             font-weight: bold; 
-            font-size: 16px;
+            font-size: max(14px, calc(16px * var(--font-scale)));
             cursor: pointer; 
             transition: 0.3s; 
             border-radius: 5px;
@@ -332,7 +342,7 @@
         }
         body.mobile-mode .user-panel span { margin-right: 0; font-size: 1rem; }
         body.mobile-mode .book-wrapper {
-            width: 100%; max-width: 600px; min-height: 80vh; height: auto;
+            width: min(100%, 640px); min-height: clamp(520px, 85vh, 900px); height: auto;
             transform: none; order: 1; display: flex;
         }
         body.mobile-mode .inner-pages { flex: 1; overflow-y: auto; }
@@ -341,13 +351,13 @@
             position: relative; opacity: 1; pointer-events: auto;
             flex-direction: column; height: auto; box-shadow: 0 20px 45px rgba(0,0,0,0.4);
         }
-        body.mobile-mode .page { padding: 30px; }
+        body.mobile-mode .page { padding: clamp(20px, 6vw, 40px); }
         body.mobile-mode .page-left { border-right: none; border-bottom: 1px solid #d7ccc8; }
-        body.mobile-mode h2 { font-size: 2.4rem; }
-        body.mobile-mode .subtitle { font-size: 1.6rem; margin-bottom: 25px; }
-        body.mobile-mode label { font-size: 1.3rem; }
-        body.mobile-mode input[type="date"] { font-size: 24px; width: 100%; }
-        body.mobile-mode textarea { font-size: 22px; line-height: 40px; height: 320px; }
+        body.mobile-mode h2 { font-size: max(2rem, calc(2.4rem * var(--font-scale))); }
+        body.mobile-mode .subtitle { font-size: max(1.2rem, calc(1.8rem * var(--font-scale))); margin-bottom: calc(30px * var(--ui-scale)); }
+        body.mobile-mode label { font-size: max(1rem, calc(1.3rem * var(--font-scale))); }
+        body.mobile-mode input[type="date"] { font-size: max(18px, calc(24px * var(--font-scale))); width: 100%; }
+        body.mobile-mode textarea { font-size: max(18px, calc(22px * var(--font-scale))); line-height: max(30px, calc(40px * var(--ui-scale))); min-height: max(240px, calc(360px * var(--ui-scale))); }
         body.mobile-mode .btn-history { width: 100%; margin-top: 30px; }
         body.mobile-mode .btn-analyze { position: static; margin-top: 25px; width: 100%; }
         body.mobile-mode .bookmark { display: none; }
@@ -418,6 +428,18 @@
     <script src="{{ url_for('static', filename='js/bgm-controller.js') }}"></script>
     <script>
         const book = document.getElementById('book');
+        const BASE_WIDTH = 1200;
+        const BASE_HEIGHT = 900;
+
+        const updateScaleVars = () => {
+            const width = Math.max(window.innerWidth, 320);
+            const height = Math.max(window.innerHeight, 480);
+            const uiScale = Math.min(Math.max(Math.min(width / BASE_WIDTH, height / BASE_HEIGHT), 0.6), 1.05);
+            const fontScale = Math.min(Math.max(width / 1100, 0.7), 1.15);
+            document.documentElement.style.setProperty('--ui-scale', uiScale.toFixed(3));
+            document.documentElement.style.setProperty('--font-scale', fontScale.toFixed(3));
+        };
+        updateScaleVars();
         const bgmController = window.BgmController ? window.BgmController.init('bgm', {
             autoStart: true,
             respectIntent: false,
@@ -433,8 +455,10 @@
             }
         };
 
-        function applyMobileLayout() {
-            const isMobile = window.innerWidth <= 920;
+        function applyResponsiveLayout() {
+            const safeHeight = Math.max(window.innerHeight, 1);
+            const aspectRatio = window.innerWidth / safeHeight;
+            const isMobile = window.innerWidth <= 920 || window.innerHeight <= 720 || aspectRatio < 1.2;
             document.body.classList.toggle('mobile-mode', isMobile);
             if (isMobile) {
                 book.classList.add('is-open');
@@ -443,7 +467,7 @@
             return false;
         }
 
-        const wasMobile = applyMobileLayout();
+        const wasMobile = applyResponsiveLayout();
 
         const beginAudio = () => {
             // Check for 'needs_care' mode
@@ -481,7 +505,8 @@
         }
 
         window.addEventListener('resize', () => {
-            applyMobileLayout();
+            updateScaleVars();
+            applyResponsiveLayout();
         });
 
         // Mind care modal
